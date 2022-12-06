@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" >AUDIOPHILE</string>
+    <string name="app_name">AUDIOPHILE</string>
     <string name="music_album_content_description">Current Song Track Image</string>
     <string name="previous_song_description">Go to previous song</string>
     <string name="pause_song_description">Pause the song</string>
