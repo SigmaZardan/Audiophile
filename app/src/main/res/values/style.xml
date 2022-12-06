@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="NavBarProperties">
+        <item name="color">#FF091227</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+    </style>
+</resources>

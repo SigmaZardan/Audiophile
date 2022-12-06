@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Audiophile</string>
+    <string name="app_name" >AUDIOPHILE</string>
+    <string name="music_album_content_description">Current Song Track Image</string>
+    <string name="previous_song_description">Go to previous song</string>
+    <string name="pause_song_description">Pause the song</string>
+    <string name="next_song_description">Go to the next song</string>
+    <string name="back_button_description">Go to the songs list</string>
+    <string name="playing_now">Playing Now</string>
+    <string name="favorite_songs_list">Favorite songs list</string>
 </resources>

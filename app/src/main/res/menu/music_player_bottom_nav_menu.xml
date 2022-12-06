@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/miHome"
+       android:title="Home"
+        android:icon="@drawable/music_icon"
+        />
+    <item
+        android:id="@+id/miFavorite"
+        android:title="Favorite"
+        android:icon="@drawable/favorite_icon"
+        />
+    <item
+        android:id="@+id/miSettings"
+        android:title="Settings"
+        android:icon="@drawable/settings_icon"
+        />
+
+</menu>
