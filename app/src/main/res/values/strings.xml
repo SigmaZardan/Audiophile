@@ -7,4 +7,5 @@
     <string name="back_button_description">Go to the songs list</string>
     <string name="playing_now">Playing Now</string>
     <string name="favorite_songs_list">Favorite songs list</string>
+    <string name="no_songs_available">No songs available</string>
 </resources>

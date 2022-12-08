@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:background="@color/dark_purple">
 
 
     <ImageView
         android:id="@+id/ivSongIcon"
-        android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_width="50dp"
         android:src="@drawable/song_list_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rlSongsSection"
@@ -21,6 +22,7 @@
         android:id="@+id/rlSongsSection"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:paddingTop="7dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +37,8 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/roboto_light"
             android:text="bibek"
+            android:layout_marginTop="10dp"
+            android:paddingTop="10dp"
             android:textColor="#A5C0FF"
             android:textSize="10sp"
             tools:layout_editor_absoluteX="118dp"
@@ -42,19 +46,34 @@
 
         <TextView
             android:id="@+id/tvSongTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="marquee"
             android:fontFamily="@font/roboto_light"
+            android:marqueeRepeatLimit = "@integer/material_motion_duration_medium_1"
+            android:singleLine="true"
+            android:gravity="center"
             android:text="For the sake of what"
             android:textColor="#FFEAF0FF"
             android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="83dp"
             tools:layout_editor_absoluteY="24dp" />
 
 
     </RelativeLayout>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/rlSongsSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="15dp"
+        android:background="#7F8591"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
