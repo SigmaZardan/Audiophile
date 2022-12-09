@@ -1,6 +1,8 @@
 package com.bibek.audiophile.model;
 
-public class SongModel {
+import java.io.Serializable;
+
+public class SongModel implements Serializable {
 
     private String path;
     private String title;

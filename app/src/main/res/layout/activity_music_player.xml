@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rlBackAndPlayNow">
 
         <ImageView
-            android:id="@+id/appIcon"
+            android:id="@+id/ivAppIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/music_album_content_description"
@@ -81,6 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/roboto_medium"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
                 android:text="Moment Apart"
                 android:textColor="#EAF0FF"
                 android:textSize="28sp"
@@ -90,7 +93,7 @@
 
             <TextView
                 android:id="@+id/tvArtistName"
-                android:layout_width="51dp"
+                android:layout_width="wrap_content"
                 android:layout_height="16dp"
                 android:layout_marginTop="4dp"
                 android:ellipsize="marquee"
@@ -101,16 +104,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvMusicTitle" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="18dp"
-                android:src="@drawable/favourite"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvMusicTitle"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/favorite_songs_list"
-                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -128,7 +121,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rlTitleAndArtistSection">
 
         <TextView
-            android:id="@+id/tvValueStart"
+            android:id="@+id/tvCurrentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -138,7 +131,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tvValueEnd"
+            android:id="@+id/tvTotalTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -158,12 +151,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rlPlayTimeSection">
 
+
         <SeekBar
             android:id="@+id/sbMusicLength"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progressDrawable="@drawable/seekbar_small_small"
-          />
+            android:thumbTint="#00BCD4"
+            android:progressTint="#FFA5C0FF"
+            />
 
     </LinearLayout>
 
@@ -191,7 +186,7 @@
                 android:src="@drawable/previous_song" />
 
             <ImageView
-                android:id="@+id/ivPauseSong"
+                android:id="@+id/ivPausePlay"
                 android:layout_width="20dp"
                 android:layout_height="18dp"
                 android:layout_centerInParent="true"
@@ -211,6 +206,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnvMusicPlayer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#091227"
