@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -44,6 +45,31 @@ public class MusicPlayerActivity extends AppCompatActivity {
         songModelArrayList = (ArrayList<SongModel>) getIntent().getSerializableExtra("SONGS LIST");
 
         setComponentsWithSongResources();
+
+        handleTheUIComponentsOnRealTime();
+    }
+
+
+
+    private void handleTheUIComponentsOnRealTime() {
+        // run on UI thread
+        MusicPlayerActivity.this.runOnUiThread(() -> {
+            // if the current mediaPlayer instance is not null
+            if(mediaPlayer != null) {
+                binding.sbMusicLength.setProgress(mediaPlayer.getCurrentPosition());
+                binding.tvCurrentTime.setText(changeToMinutesAndSeconds(mediaPlayer.getCurrentPosition() + ""));
+
+
+                if(mediaPlayer.isPlaying()){
+                    binding.ivPausePlay.setImageResource(R.drawable.pause_song);
+                }
+                else {
+                    binding.ivPausePlay.setImageResource(R.drawable.play_button);
+                }
+            }
+            new Handler().postDelayed((this::handleTheUIComponentsOnRealTime), 100);
+        });
+
     }
 
      //set the xml components with the resources from the songs list
@@ -59,14 +85,12 @@ public class MusicPlayerActivity extends AppCompatActivity {
         binding.ivNextSong.setOnClickListener(view -> playNextSong());
 
         playMusic();
-
     }
 
 
     //play the song
     private void playMusic() {
-        // we need the media player instance to play the song
-
+        // user the media player instance to play the song
 
         try {
             mediaPlayer.reset();
@@ -81,8 +105,6 @@ public class MusicPlayerActivity extends AppCompatActivity {
         }catch(IOException e){
             e.printStackTrace();
         }
-
-
 
 
     }
@@ -127,6 +149,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
         if(mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
+
         }
         else {
             mediaPlayer.start();
