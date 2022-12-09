@@ -70,7 +70,39 @@ public class MusicPlayerActivity extends AppCompatActivity {
             new Handler().postDelayed((this::handleTheUIComponentsOnRealTime), 100);
         });
 
+
+        handleProgressBarPositionSeek();
+
     }
+
+    // handle the progress bar when the user seeks it to different position
+    private void handleProgressBarPositionSeek() {
+
+        binding.sbMusicLength.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                        if(mediaPlayer != null && fromUser) {
+                            mediaPlayer.seekTo(progress);
+                        }
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                }
+        );
+    }
+
+
 
      //set the xml components with the resources from the songs list
     private void setComponentsWithSongResources() {
