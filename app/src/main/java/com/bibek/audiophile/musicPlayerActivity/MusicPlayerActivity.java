@@ -125,6 +125,13 @@ public class MusicPlayerActivity extends AppCompatActivity {
     // pause or play the song
     private void pausePlaySong() {
 
+        if(mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+        else {
+            mediaPlayer.start();
+        }
+
 
     }
 
