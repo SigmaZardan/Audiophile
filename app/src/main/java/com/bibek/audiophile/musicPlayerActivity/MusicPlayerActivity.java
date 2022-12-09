@@ -60,18 +60,46 @@ public class MusicPlayerActivity extends AppCompatActivity {
                 binding.tvCurrentTime.setText(changeToMinutesAndSeconds(mediaPlayer.getCurrentPosition() + ""));
 
 
-                if(mediaPlayer.isPlaying()){
-                    binding.ivPausePlay.setImageResource(R.drawable.pause_song);
-                }
-                else {
-                    binding.ivPausePlay.setImageResource(R.drawable.play_button);
-                }
+
+                handlePlayAndPauseButtonChange();
+
+
+
             }
             new Handler().postDelayed((this::handleTheUIComponentsOnRealTime), 100);
         });
 
 
         handleProgressBarPositionSeek();
+
+        handleAutoPlaySongAfterCompletion();
+
+    }
+
+
+    // play the next song automatically after it is completed
+    private void handleAutoPlaySongAfterCompletion() {
+        mediaPlayer.setOnCompletionListener(mediaPlayer -> {
+
+            try {
+                playNextSong();
+
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
+
+    // handle the pause play button icon changes
+    private void handlePlayAndPauseButtonChange() {
+        if(mediaPlayer.isPlaying()){
+            binding.ivPausePlay.setImageResource(R.drawable.pause_song);
+        }
+        else {
+            binding.ivPausePlay.setImageResource(R.drawable.play_button);
+        }
 
     }
 
@@ -86,6 +114,9 @@ public class MusicPlayerActivity extends AppCompatActivity {
                         if(mediaPlayer != null && fromUser) {
                             mediaPlayer.seekTo(progress);
                         }
+
+
+
 
                     }
 
@@ -143,13 +174,12 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
     // play the previous song
     private void playPreviousSong() {
-
-        // if the current song is the last song
-        if(SongMediaPlayer.currentIndex == songModelArrayList.size() - 1){
+        // if the current song is the first song
+        if(SongMediaPlayer.currentIndex == 0) {
             return;
         }
-        //increase the current index of the song
-        SongMediaPlayer.currentIndex += 1;
+        // decrease the current index
+        SongMediaPlayer.currentIndex -= 1;
         // reset
         mediaPlayer.reset();
 
@@ -158,17 +188,18 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
 
 
+
+
     }
 
     // play the next song
     private void playNextSong() {
-
-        // if the current song is the first song
-        if(SongMediaPlayer.currentIndex == 0) {
+        // if the current song is the last song
+        if(SongMediaPlayer.currentIndex == songModelArrayList.size() - 1){
             return;
         }
-        // decrease the current index
-        SongMediaPlayer.currentIndex -= 1;
+        //increase the current index of the song
+        SongMediaPlayer.currentIndex += 1;
         // reset
         mediaPlayer.reset();
 
