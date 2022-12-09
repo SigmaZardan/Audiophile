@@ -2,6 +2,7 @@ package com.bibek.audiophile.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         int currentSongPosition = position;
         holder.tvSongTitle.setText(song.getTitle());
         holder.tvArtistName.setText(song.getArtist());
+
 
         holder.itemView.setOnClickListener(
                 view -> {

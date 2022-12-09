@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -21,9 +22,11 @@ import android.widget.Toast;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.SongAdapter;
 import com.bibek.audiophile.model.SongModel;
+import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MusicListActivity extends AppCompatActivity {
 
@@ -35,6 +38,7 @@ public class MusicListActivity extends AppCompatActivity {
 
     private RecyclerView rvSongs;
     private TextView tvNoSongs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -34,17 +34,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnvSongsList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#091227"
-        app:itemIconTint="#EAF0FF"
-        app:itemTextColor="#EAF0FF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/song_list_bottom_navbar_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
