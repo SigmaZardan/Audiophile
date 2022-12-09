@@ -6,16 +6,11 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.TextView;
-
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.databinding.ActivityMusicPlayerBinding;
 import com.bibek.audiophile.model.SongModel;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
-
-import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;

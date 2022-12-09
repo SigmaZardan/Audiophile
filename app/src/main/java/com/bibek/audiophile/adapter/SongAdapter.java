@@ -2,7 +2,6 @@ package com.bibek.audiophile.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,14 @@ import com.bibek.audiophile.musicPlayerActivity.MusicPlayerActivity;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 
 import java.util.ArrayList;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>{
+public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>  {
 
     private Context context;
     private ArrayList<SongModel> songModelArrayList;
+
 
     public SongAdapter(Context context, ArrayList<SongModel> songModelArrayList) {
         this.context = context;
@@ -54,8 +56,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                     // set the current position of the song clicked
                     SongMediaPlayer.currentIndex = currentSongPosition;
 
+
                     //navigate to MusicPlayerActivity
                     Intent intent = new Intent(context, MusicPlayerActivity.class);
+
 
                     // pass the songs list as extras
                     intent.putExtra("SONGS LIST", songModelArrayList);
@@ -75,6 +79,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     public int getItemCount() {
         return songModelArrayList.size();
     }
+
 
     public class SongViewHolder extends RecyclerView.ViewHolder {
         private TextView tvSongTitle;
