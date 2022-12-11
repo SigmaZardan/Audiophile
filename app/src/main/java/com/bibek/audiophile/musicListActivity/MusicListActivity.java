@@ -1,5 +1,8 @@
 package com.bibek.audiophile.musicListActivity;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -7,10 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -55,9 +62,12 @@ public class MusicListActivity extends AppCompatActivity {
 
 
         // if the permission is now allowed ask for the permission and return
-        if(!isPermissionAllowed()){
+        if(isPermissionAllowed()){
+            Toast.makeText(context, "Permission already granted", Toast.LENGTH_SHORT);
+
+        }
+        else {
             requestPermissions();
-            return;
         }
 
 
@@ -142,20 +152,57 @@ public class MusicListActivity extends AppCompatActivity {
 
     private boolean isPermissionAllowed() {
         Log.d("Checking permission ", permission);
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(),permission);
-        return result == PackageManager.PERMISSION_GRANTED; // if permission granted return true otherwise false
+            int result = ContextCompat.checkSelfPermission(getApplicationContext(),permission);
+            return result == PackageManager.PERMISSION_GRANTED; // if permission granted return true otherwise false
+
+
 
     }
 
 
     private void  requestPermissions(){
-
-        if(ActivityCompat.shouldShowRequestPermissionRationale(MusicListActivity.this, permission)){
-            Toast.makeText(MusicListActivity.this, "READ PERMISSION IS REQUIRED , PLEASE ALLOW FROM THE SETTINGS",Toast.LENGTH_LONG).show();
-
-        }
-        ActivityCompat.requestPermissions(MusicListActivity.this,new String[]{permission},PERMISSION_REQUEST_CODE );
+        ActivityCompat.requestPermissions((Activity) context, new String[]{permission},PERMISSION_REQUEST_CODE);
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0) {
+                    boolean externalStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (externalStorageAccepted)
+                        Toast.makeText(MusicListActivity.this, "Permission Granted, Now you can access the external storage .", Toast.LENGTH_LONG).show();
+                    else {
+                        Toast.makeText(this, "Permission Denied, You cannot access the external storage.", Toast.LENGTH_LONG).show();
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
+                                showMessageOKCancel("You need to allow access to external storage permission",
+                                        (dialog, which) -> {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                requestPermissions(new String[]{ACCESS_FINE_LOCATION},
+                                                        PERMISSION_REQUEST_CODE);
+                                            }
+                                        });
+                                return;
+                            }
+                        }
+
+                    }
+                }
+                break;
+        }
+
+    }
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MusicListActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
 }

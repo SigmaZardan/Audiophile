@@ -16,8 +16,6 @@ import com.bibek.audiophile.musicPlayerActivity.MusicPlayerActivity;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 
 import java.util.ArrayList;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>  {
 
