@@ -214,18 +214,7 @@
     </LinearLayout>
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnvMusicPlayer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#091227"
-        app:itemIconTint="#EAF0FF"
-        app:itemTextColor="#EAF0FF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPrevPausePlaySection"
-        app:menu="@menu/music_player_bottom_nav_menu" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

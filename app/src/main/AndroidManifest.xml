@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Audiophile"
         tools:targetApi="31">
         <activity
-            android:name=".musicListActivity.MusicListActivity"
+            android:name=".firstScreenActivity.FirstScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,10 +27,17 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".musicPlayerActivity.MusicPlayerActivity"
+            android:name=".musicListActivity.MusicListActivity"
             android:exported="true">
 
 
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".musicPlayerActivity.MusicPlayerActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

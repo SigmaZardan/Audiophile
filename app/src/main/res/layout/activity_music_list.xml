@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/no_songs_available"
-        android:textColor="#FFEAF0FF"
+        android:textColor="#EAF0FF"
         android:textSize="40dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
