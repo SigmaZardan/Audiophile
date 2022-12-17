@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.FirstScreenItemAdapter;
+import com.bibek.audiophile.adapter.RecyclerViewInterface;
+import com.bibek.audiophile.favoriteListActivity.FavoriteListActivity;
 import com.bibek.audiophile.model.FirstScreenItemModel;
+import com.bibek.audiophile.musicListActivity.MusicListActivity;
+import com.bibek.audiophile.playlistActivity.CreatePlaylistActivity;
 
 import java.util.ArrayList;
 
-public class FirstScreenActivity extends AppCompatActivity {
+public class FirstScreenActivity extends AppCompatActivity implements RecyclerViewInterface {
 
     private RecyclerView rvFirstScreenItems;
     private FirstScreenItemAdapter adapter;
@@ -51,9 +56,31 @@ public class FirstScreenActivity extends AppCompatActivity {
 
 
         // setting up the adapter
-        adapter  = new FirstScreenItemAdapter(FirstScreenActivity.this,firstScreenItemModelArrayList );
+        adapter  = new FirstScreenItemAdapter( this , FirstScreenActivity.this,firstScreenItemModelArrayList );
         rvFirstScreenItems.setLayoutManager(new LinearLayoutManager(FirstScreenActivity.this, LinearLayoutManager.VERTICAL,false));
         rvFirstScreenItems.setAdapter(adapter);
 
+
+
+
     }
+
+    @Override
+    public void onItemClickListener(int position) {
+        Intent intent;
+        switch (position)  {
+            case 0 : intent = new Intent(getApplicationContext(), MusicListActivity.class);
+                     startActivity(intent);
+
+            case 1 : intent = new Intent(getApplicationContext(), FavoriteListActivity.class);
+                startActivity(intent);
+
+            case 2 : intent = new Intent(getApplicationContext(), CreatePlaylistActivity.class);
+                startActivity(intent);
+
+        }
+
+    }
+
+
 }

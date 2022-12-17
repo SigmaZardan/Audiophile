@@ -6,22 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.model.FirstScreenItemModel;
+
 
 import java.util.ArrayList;
 
 public class FirstScreenItemAdapter extends RecyclerView.Adapter<FirstScreenItemAdapter.FirstScreenItemViewHolder>{
 
+    private final RecyclerViewInterface recyclerViewInterface;
     Context context;
     ArrayList<FirstScreenItemModel> firstScreenItemModelArrayList;
 
 
-    public FirstScreenItemAdapter(Context context, ArrayList<FirstScreenItemModel> firstScreenItemModelArrayList) {
+    public FirstScreenItemAdapter(RecyclerViewInterface recyclerViewInterface, Context context, ArrayList<FirstScreenItemModel> firstScreenItemModelArrayList) {
+        this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.firstScreenItemModelArrayList = firstScreenItemModelArrayList;
     }
@@ -41,7 +42,6 @@ public class FirstScreenItemAdapter extends RecyclerView.Adapter<FirstScreenItem
         holder.ivFirstScreenItemTitle.setText(item.getFirstScreenItemTitle());
         holder.ivArrowIcon.setImageResource(item.getFirstScreenArrowIcon());
 
-
     }
 
     @Override
@@ -58,6 +58,31 @@ public class FirstScreenItemAdapter extends RecyclerView.Adapter<FirstScreenItem
             ivFirstScreenIcon = itemView.findViewById(R.id.ivFirstScreenIcon);
             ivFirstScreenItemTitle = itemView.findViewById(R.id.tvFirstScreenItemTitle);
             ivArrowIcon = itemView.findViewById(R.id.ivArrowIcon);
+
+
+            // passing the position to the recyclerView interface
+            itemView.setOnClickListener(view -> {
+                if(recyclerViewInterface != null) {
+                    int position = getAdapterPosition();
+
+                    if(position != RecyclerView.NO_POSITION){
+                        recyclerViewInterface.onItemClickListener(position);
+                    }
+
+                }
+
+            });
+
+
+
         }
+
+
+
+
+
     }
+
+
+
 }
