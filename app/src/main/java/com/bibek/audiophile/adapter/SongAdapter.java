@@ -1,10 +1,18 @@
 package com.bibek.audiophile.adapter;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +22,9 @@ import com.bibek.audiophile.R;
 import com.bibek.audiophile.model.SongModel;
 import com.bibek.audiophile.musicPlayerActivity.MusicPlayerActivity;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder>  {
@@ -71,7 +81,67 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                 }
         );
 
+
+        //handling the options menu
+
+        holder.ivOptionIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                holder.itemView.setActivated(false);
+
+                //creating a pop-up menu
+                PopupMenu popup = new PopupMenu(context, view);
+
+                //inflating menu from xml resource
+              popup.inflate(R.menu.song_menu);
+
+              popup.show();
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.miAddToFavorite: // handle the song addition to favorite list
+                                                       return true;
+                            case R.id.miDelete: // handle the deletion of the song
+
+                                deleteFile(currentSongPosition, view);
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+
     }
+
+    // method to handle the file deletion
+    private void deleteFile(int position, View view){
+
+
+        Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI ,
+                Long.parseLong(songModelArrayList.get(position).getId()));
+
+        File file = new File(songModelArrayList.get(position).getPath());
+        boolean deleted = file.delete();
+
+        if(deleted ){
+            context.getContentResolver().delete(contentUri, null, null);
+            songModelArrayList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, songModelArrayList.size());
+            Snackbar.make(view, "SONG DELETED!", Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            // if the song is in sd card then it will not be deleted
+            Snackbar.make(view, "SONG CANNOT BE DELETED!", Snackbar.LENGTH_LONG).show();
+        }
+
+
+    }
+
 
     @Override
     public int getItemCount() {
@@ -82,12 +152,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     public class SongViewHolder extends RecyclerView.ViewHolder {
         private TextView tvSongTitle;
         private TextView tvArtistName;
+        private ImageView ivOptionIcon;
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);
             tvSongTitle = itemView.findViewById(R.id.tvSongTitle);
             tvArtistName = itemView.findViewById(R.id.tvArtistName);
-
+            ivOptionIcon = itemView.findViewById(R.id.ivOptionIcon);
 
         }
     }

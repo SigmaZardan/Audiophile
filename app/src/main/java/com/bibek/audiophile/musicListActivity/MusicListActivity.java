@@ -83,7 +83,8 @@ public class MusicListActivity extends AppCompatActivity {
                     cursor.getString(2),
                     cursor.getString(0),
                     cursor.getString(3),
-                    cursor.getString(1));
+                    cursor.getString(1),
+                    cursor.getString(4));
 
             // check if the song exists in the database
             if(new File(songData.getPath()).exists()){
@@ -124,7 +125,8 @@ public class MusicListActivity extends AppCompatActivity {
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media.ARTIST,
                 MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.DURATION
+                MediaStore.Audio.Media.DURATION,
+                MediaStore.Audio.Media._ID
 
 
         };

@@ -10,17 +10,6 @@
     android:focusable="true">
 
 
-    <ImageView
-        android:id="@+id/ivSongIcon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/song_list_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/rlSongsSection"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <RelativeLayout
         android:id="@+id/rlSongsSection"
         android:layout_width="wrap_content"
@@ -29,10 +18,10 @@
         android:paddingTop="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivOptionIcon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ivSongIcon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tvArtistName"
@@ -68,6 +57,31 @@
 
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivSongIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/song_list_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rlSongsSection"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivOptionIcon"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ripple"
+        android:src="@drawable/options_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rlSongsSection"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#EAF0FF" />
 
     <View
         android:layout_width="match_parent"

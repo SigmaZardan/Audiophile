@@ -8,13 +8,15 @@ public class SongModel implements Serializable {
     private String title;
     private String duration;
     private String artist;
+    private String id;
 
 
-    public SongModel(String path, String title, String duration, String artist) {
+    public SongModel(String path, String title, String duration, String artist,String id) {
         this.path = path;
         this.title = title;
         this.duration = duration;
         this.artist = artist;
+        this.id = id;
     }
 
 
@@ -48,5 +50,13 @@ public class SongModel implements Serializable {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
