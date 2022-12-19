@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.FirstScreenItemAdapter;
@@ -17,7 +18,7 @@ import com.bibek.audiophile.playlistActivity.CreatePlaylistActivity;
 
 import java.util.ArrayList;
 
-public class FirstScreenActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class FirstScreenActivity extends AppCompatActivity implements RecyclerViewInterface{
 
     private RecyclerView rvFirstScreenItems;
     private FirstScreenItemAdapter adapter;
@@ -56,7 +57,7 @@ public class FirstScreenActivity extends AppCompatActivity implements RecyclerVi
 
 
         // setting up the adapter
-        adapter  = new FirstScreenItemAdapter( this , FirstScreenActivity.this,firstScreenItemModelArrayList );
+        adapter  = new FirstScreenItemAdapter(  this, FirstScreenActivity.this,firstScreenItemModelArrayList );
         rvFirstScreenItems.setLayoutManager(new LinearLayoutManager(FirstScreenActivity.this, LinearLayoutManager.VERTICAL,false));
         rvFirstScreenItems.setAdapter(adapter);
 
@@ -65,22 +66,34 @@ public class FirstScreenActivity extends AppCompatActivity implements RecyclerVi
 
     }
 
+
+
+
     @Override
     public void onItemClickListener(int position) {
+        Log.d("POSITION", String.valueOf(position));
         Intent intent;
-        switch (position)  {
-            case 0 : intent = new Intent(getApplicationContext(), MusicListActivity.class);
+
+        switch(position) {
+            case 0 :   intent = new Intent(FirstScreenActivity.this, MusicListActivity.class);
+                      startActivity(intent);
+                      break;
+
+            case 1 : intent = new Intent(FirstScreenActivity.this, FavoriteListActivity.class);
                      startActivity(intent);
+                     break;
 
-            case 1 : intent = new Intent(getApplicationContext(), FavoriteListActivity.class);
-                startActivity(intent);
 
-            case 2 : intent = new Intent(getApplicationContext(), CreatePlaylistActivity.class);
-                startActivity(intent);
+            case 2 : intent = new Intent(FirstScreenActivity.this, CreatePlaylistActivity.class);
+                    startActivity(intent);
+                    break;
+
+
+            default: System.out.println("Just click on the items");
+
+
 
         }
 
     }
-
-
 }

@@ -1,12 +1,11 @@
 package com.bibek.audiophile.model;
 
-import androidx.annotation.IdRes;
+
 
 public class FirstScreenItemModel {
-    @IdRes
+
     private int firstScreenItemIconId;
     private String firstScreenItemTitle;
-    @IdRes
     private int firstScreenArrowIcon;
 
 

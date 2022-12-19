@@ -4,7 +4,9 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibek.audiophile.R;
+import com.bibek.audiophile.favoriteListActivity.FavoriteListActivity;
 import com.bibek.audiophile.model.SongModel;
 import com.bibek.audiophile.musicPlayerActivity.MusicPlayerActivity;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
@@ -31,6 +34,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     private Context context;
     private ArrayList<SongModel> songModelArrayList;
+
+    private ArrayList<SongModel> favoriteList = new ArrayList<>();
 
 
     public SongAdapter(Context context, ArrayList<SongModel> songModelArrayList) {
@@ -103,6 +108,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.miAddToFavorite: // handle the song addition to favorite list
+
                                                        return true;
                             case R.id.miDelete: // handle the deletion of the song
 
@@ -116,6 +122,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         });
 
     }
+
 
     // method to handle the file deletion
     private void deleteFile(int position, View view){

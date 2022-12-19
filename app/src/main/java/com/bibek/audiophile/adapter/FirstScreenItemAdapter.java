@@ -16,12 +16,13 @@ import java.util.ArrayList;
 
 public class FirstScreenItemAdapter extends RecyclerView.Adapter<FirstScreenItemAdapter.FirstScreenItemViewHolder>{
 
-    private final RecyclerViewInterface recyclerViewInterface;
+
     Context context;
     ArrayList<FirstScreenItemModel> firstScreenItemModelArrayList;
+    private RecyclerViewInterface recyclerViewInterface;
 
 
-    public FirstScreenItemAdapter(RecyclerViewInterface recyclerViewInterface, Context context, ArrayList<FirstScreenItemModel> firstScreenItemModelArrayList) {
+    public FirstScreenItemAdapter( RecyclerViewInterface recyclerViewInterface, Context context, ArrayList<FirstScreenItemModel> firstScreenItemModelArrayList) {
         this.recyclerViewInterface = recyclerViewInterface;
         this.context = context;
         this.firstScreenItemModelArrayList = firstScreenItemModelArrayList;
@@ -31,7 +32,7 @@ public class FirstScreenItemAdapter extends RecyclerView.Adapter<FirstScreenItem
     @Override
     public FirstScreenItemAdapter.FirstScreenItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.row_first_screen_item,parent, false);
-        return new FirstScreenItemViewHolder(view);
+        return new FirstScreenItemViewHolder(view,recyclerViewInterface);
     }
 
     @Override
@@ -49,38 +50,27 @@ public class FirstScreenItemAdapter extends RecyclerView.Adapter<FirstScreenItem
         return firstScreenItemModelArrayList.size();
     }
 
-    public class FirstScreenItemViewHolder extends RecyclerView.ViewHolder {
+    public class FirstScreenItemViewHolder extends RecyclerView.ViewHolder implements
+    View.OnClickListener{
         private ImageView ivFirstScreenIcon;
         private TextView ivFirstScreenItemTitle;
         private ImageView ivArrowIcon;
-        public FirstScreenItemViewHolder(@NonNull View itemView) {
+        RecyclerViewInterface recyclerViewInterface;
+        public FirstScreenItemViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             ivFirstScreenIcon = itemView.findViewById(R.id.ivFirstScreenIcon);
             ivFirstScreenItemTitle = itemView.findViewById(R.id.tvFirstScreenItemTitle);
             ivArrowIcon = itemView.findViewById(R.id.ivArrowIcon);
-
-
-            // passing the position to the recyclerView interface
-            itemView.setOnClickListener(view -> {
-                if(recyclerViewInterface != null) {
-                    int position = getAdapterPosition();
-
-                    if(position != RecyclerView.NO_POSITION){
-                        recyclerViewInterface.onItemClickListener(position);
-                    }
-
-                }
-
-            });
-
-
-
+            this.recyclerViewInterface = recyclerViewInterface;
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View view) {
+            recyclerViewInterface.onItemClickListener(getAdapterPosition());
 
-
-
+        }
     }
 
 

@@ -46,7 +46,7 @@ public class MusicListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_list);
 
-        rvSongs = findViewById(R.id.rvSongs);
+        rvSongs = findViewById(R.id.rvFavoriteSongs);
         tvNoSongs = findViewById(R.id.tvNoSongs);
 
 
