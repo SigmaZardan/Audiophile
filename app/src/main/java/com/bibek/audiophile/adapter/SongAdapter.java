@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibek.audiophile.R;
+import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.favoriteListActivity.FavoriteListActivity;
 import com.bibek.audiophile.model.SongModel;
 import com.bibek.audiophile.musicPlayerActivity.MusicPlayerActivity;
@@ -108,13 +109,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.miAddToFavorite: // handle the song addition to favorite list
+                                addToFavoriteList(currentSongPosition, view);
+                                return true;
 
-                                                       return true;
+
                             case R.id.miDelete: // handle the deletion of the song
-
                                 deleteFile(currentSongPosition, view);
                                 return true;
                         }
+
                         return false;
                     }
                 });
@@ -122,6 +125,18 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         });
 
     }
+
+    //method to handle th favorite list addition
+
+    private void addToFavoriteList(int position, View view) {
+
+            App.db.songDao().insert(songModelArrayList.get(position));
+            Snackbar.make(view, "SONG ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
+            Log.d("DB_TEST" , "Database Size ==>" + App.db.songDao().getAllSongs().size());
+
+
+    }
+
 
 
     // method to handle the file deletion

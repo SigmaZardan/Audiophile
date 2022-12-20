@@ -84,7 +84,7 @@ public class MusicListActivity extends AppCompatActivity {
                     cursor.getString(0),
                     cursor.getString(3),
                     cursor.getString(1),
-                    cursor.getString(4));
+                    cursor.getString(4) );
 
             // check if the song exists in the database
             if(new File(songData.getPath()).exists()){

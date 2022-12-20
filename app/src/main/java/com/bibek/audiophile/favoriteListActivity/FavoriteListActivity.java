@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.SongAdapter;
+import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.SongModel;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class FavoriteListActivity extends AppCompatActivity {
     private ArrayList<SongModel> favoriteSongsList = new ArrayList<>();
     private RecyclerView rvFavoriteSongs;
     private TextView tvNoFavoriteSongs;
+    private SongAdapter songAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,35 +36,30 @@ public class FavoriteListActivity extends AppCompatActivity {
         tvNoFavoriteSongs = findViewById(R.id.tvNoFavoriteSongs);
 
 
+        //storing all the songs from database to the list
+        favoriteSongsList = (ArrayList<SongModel>)App.db.songDao().getAllSongs();
+
+
 
 
        // render the favorite songs
+        if(favoriteSongsList.size() == 0) {
+            tvNoFavoriteSongs.setVisibility(View.VISIBLE);
+        }
+        else {
+            renderFavoriteSongs(favoriteSongsList);
 
-        renderFavoriteSongs(favoriteSongsList);
-
+        }
 
     }
 
     // render the songs in the music list UI
     private void renderFavoriteSongs(ArrayList<SongModel> songModelArrayList)  {
 
-
-            if(favoriteSongsList.size() == 0 ) {
-                tvNoFavoriteSongs.setVisibility(View.VISIBLE);
-
-            }
-            else {
-                // use the recycler view to render songs
-
-                SongAdapter songAdapter = new SongAdapter(FavoriteListActivity.this , songModelArrayList);
+        // set the adapter
+               songAdapter = new SongAdapter(FavoriteListActivity.this , (ArrayList<SongModel>)App.db.songDao().getAllSongs());
                 rvFavoriteSongs.setLayoutManager(new LinearLayoutManager(FavoriteListActivity.this, LinearLayoutManager.VERTICAL,false));
                 rvFavoriteSongs.setAdapter(songAdapter);
-
-            }
-
-
-
-
 
     }
 

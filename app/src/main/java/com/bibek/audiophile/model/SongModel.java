@@ -1,13 +1,20 @@
 package com.bibek.audiophile.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+
+@Entity
 public class SongModel implements Serializable {
 
     private String path;
     private String title;
     private String duration;
     private String artist;
+    @PrimaryKey @NonNull
     private String id;
 
 
