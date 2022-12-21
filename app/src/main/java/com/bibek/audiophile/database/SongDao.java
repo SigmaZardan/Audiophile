@@ -2,6 +2,7 @@ package com.bibek.audiophile.database;
 
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -15,6 +16,10 @@ public interface SongDao {
 
     @Insert
     void insert(SongModel songModel);
+
+
+    @Delete
+    void delete(SongModel songModel);
 
 
 

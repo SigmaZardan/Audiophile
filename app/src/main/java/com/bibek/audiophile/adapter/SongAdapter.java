@@ -39,6 +39,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     private ArrayList<SongModel> favoriteList = new ArrayList<>();
 
 
+
+
     public SongAdapter(Context context, ArrayList<SongModel> songModelArrayList) {
         this.context = context;
         this.songModelArrayList = songModelArrayList;
@@ -104,12 +106,28 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
               popup.show();
 
+                favoriteList = (ArrayList<SongModel>) App.db.songDao().getAllSongs();
+
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.miAddToFavorite: // handle the song addition to favorite list
-                                addToFavoriteList(currentSongPosition, view);
+
+                                boolean hasSameId = false;
+                                // checking if each songs id is same
+                                for(SongModel songModel : favoriteList) {
+                                     hasSameId = (songModel.getId() == songModelArrayList.get(currentSongPosition).getId());
+
+                                }
+                                if(hasSameId) {
+
+                                    Snackbar.make(view, "SONG ALREADY ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
+                                }
+                                else {
+                                    addToFavoriteList(currentSongPosition, view);
+
+                                }
                                 return true;
 
 
@@ -130,9 +148,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     private void addToFavoriteList(int position, View view) {
 
+
             App.db.songDao().insert(songModelArrayList.get(position));
             Snackbar.make(view, "SONG ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
             Log.d("DB_TEST" , "Database Size ==>" + App.db.songDao().getAllSongs().size());
+
+
+
 
 
     }
@@ -144,7 +166,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
 
         Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI ,
-                Long.parseLong(songModelArrayList.get(position).getId()));
+                Long.parseLong( String.valueOf(songModelArrayList.get(position).getId())));
 
         File file = new File(songModelArrayList.get(position).getPath());
         boolean deleted = file.delete();

@@ -9,6 +9,12 @@
         app:showAsAction="never"
         />
 
+    <item
+        android:id="@+id/miRemoveFromFavoriteList"
+        android:title="Remove from Favorites"
+        app:showAsAction="never"
+        />
+
 
     <item
         android:id="@+id/miDelete"
