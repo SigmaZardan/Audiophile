@@ -131,6 +131,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                                 return true;
 
 
+
+                            case R.id.miRemoveFromFavoriteList:
+                                // handle the removal of the song from the favorite list
+
+                                deleteSongFromFavoriteList(currentSongPosition, view);
+                                return true;
+
+
                             case R.id.miDelete: // handle the deletion of the song
                                 deleteFile(currentSongPosition, view);
                                 return true;
@@ -141,6 +149,16 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                 });
             }
         });
+
+    }
+
+
+    // handle the removal of element from the favorite list
+    private void deleteSongFromFavoriteList(int position, View view) {
+
+        App.db.songDao().delete(songModelArrayList.get(position));
+        Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
+
 
     }
 
