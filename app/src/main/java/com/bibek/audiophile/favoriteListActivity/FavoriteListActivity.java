@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bibek.audiophile.R;
+import com.bibek.audiophile.adapter.FavoriteSongAdapter;
 import com.bibek.audiophile.adapter.SongAdapter;
 import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.SongModel;
@@ -20,7 +21,7 @@ public class FavoriteListActivity extends AppCompatActivity {
     private ArrayList<SongModel> favoriteSongsList = new ArrayList<>();
     private RecyclerView rvFavoriteSongs;
     private TextView tvNoFavoriteSongs;
-    private SongAdapter songAdapter;
+    private FavoriteSongAdapter favoriteSongAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,9 @@ public class FavoriteListActivity extends AppCompatActivity {
     private void renderFavoriteSongs(ArrayList<SongModel> songModelArrayList)  {
 
         // set the adapter
-               songAdapter = new SongAdapter(FavoriteListActivity.this ,songModelArrayList);
+               favoriteSongAdapter = new FavoriteSongAdapter(FavoriteListActivity.this ,songModelArrayList);
                 rvFavoriteSongs.setLayoutManager(new LinearLayoutManager(FavoriteListActivity.this, LinearLayoutManager.VERTICAL,false));
-                rvFavoriteSongs.setAdapter(songAdapter);
+                rvFavoriteSongs.setAdapter(favoriteSongAdapter);
 
     }
 

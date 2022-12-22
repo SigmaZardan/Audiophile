@@ -157,8 +157,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     private void deleteSongFromFavoriteList(int position, View view) {
 
         App.db.songDao().delete(songModelArrayList.get(position));
-        songModelArrayList.remove(position);
-        notifyDataSetChanged();
         Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
 
 
@@ -168,14 +166,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     private void addToFavoriteList(int position, View view) {
 
-
             App.db.songDao().insert(songModelArrayList.get(position));
             Snackbar.make(view, "SONG ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
             Log.d("DB_TEST" , "Database Size ==>" + App.db.songDao().getAllSongs().size());
-
-
-
-
 
     }
 
