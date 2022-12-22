@@ -57,7 +57,7 @@ public class FavoriteListActivity extends AppCompatActivity {
     private void renderFavoriteSongs(ArrayList<SongModel> songModelArrayList)  {
 
         // set the adapter
-               songAdapter = new SongAdapter(FavoriteListActivity.this , (ArrayList<SongModel>)App.db.songDao().getAllSongs());
+               songAdapter = new SongAdapter(FavoriteListActivity.this ,songModelArrayList);
                 rvFavoriteSongs.setLayoutManager(new LinearLayoutManager(FavoriteListActivity.this, LinearLayoutManager.VERTICAL,false));
                 rvFavoriteSongs.setAdapter(songAdapter);
 

@@ -157,6 +157,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     private void deleteSongFromFavoriteList(int position, View view) {
 
         App.db.songDao().delete(songModelArrayList.get(position));
+        songModelArrayList.remove(position);
+        notifyDataSetChanged();
         Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
 
 
