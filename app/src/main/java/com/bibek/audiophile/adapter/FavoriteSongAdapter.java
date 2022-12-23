@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.SongModel;
-import com.bibek.audiophile.musicPlayerActivity.MusicPlayerActivity;
+import com.bibek.audiophile.ui.musicPlayerActivity.MusicPlayerActivity;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 import com.google.android.material.snackbar.Snackbar;
 

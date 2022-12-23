@@ -1,4 +1,4 @@
-package com.bibek.audiophile.musicListActivity;
+package com.bibek.audiophile.ui.musicListActivity;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import androidx.annotation.NonNull;
@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.SongAdapter;
 import com.bibek.audiophile.model.SongModel;
+import com.bibek.audiophile.ui.firstScreenActivity.FirstScreenActivity;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -39,6 +42,7 @@ public class MusicListActivity extends AppCompatActivity {
 
     private RecyclerView rvSongs;
     private TextView tvNoSongs;
+    private SongAdapter songAdapter;
 
 
     @Override
@@ -63,12 +67,15 @@ public class MusicListActivity extends AppCompatActivity {
             requestPermissions();
         }
 
-
         Cursor cursor = readSongs();
+        ArrayList<SongModel> songModelArrayList = addSongsToList(cursor);
 
-       ArrayList<SongModel> songModelArrayList = addSongsToList(cursor);
 
-       renderSongs(songModelArrayList);
+
+
+
+       // render the song
+           renderSongs(songModelArrayList);
 
 
 
@@ -106,7 +113,7 @@ public class MusicListActivity extends AppCompatActivity {
         else {
             // use the recycler view to render songs
 
-            SongAdapter songAdapter = new SongAdapter(context , songModelArrayList);
+             songAdapter = new SongAdapter(context , songModelArrayList);
             rvSongs.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false));
             rvSongs.setAdapter(songAdapter);
 
@@ -168,8 +175,11 @@ public class MusicListActivity extends AppCompatActivity {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0) {
                     boolean externalStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    if (externalStorageAccepted)
+                    if (externalStorageAccepted) {
                         Toast.makeText(MusicListActivity.this, "Permission Granted, Now you can access the external storage .", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(MusicListActivity.this, FirstScreenActivity.class);
+                        startActivity(intent);
+                    }
                     else {
                         Toast.makeText(this, "Permission Denied, You cannot access the external storage.", Toast.LENGTH_LONG).show();
 
@@ -200,4 +210,6 @@ public class MusicListActivity extends AppCompatActivity {
                 .create()
                 .show();
     }
+
+
 }

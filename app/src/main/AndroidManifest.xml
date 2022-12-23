@@ -16,21 +16,22 @@
         android:theme="@style/Theme.Audiophile"
         tools:targetApi="31">
         <activity
-            android:name=".playlistActivity.CreatePlaylistActivity"
+            android:name=".ui.playlistActivity.CreatePlaylistActivity"
+            android:exported="true">
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.favoriteListActivity.FavoriteListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".favoriteListActivity.FavoriteListActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".firstScreenActivity.FirstScreenActivity"
+            android:name=".ui.firstScreenActivity.FirstScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,12 +39,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".musicListActivity.MusicListActivity"
+            android:name=".ui.musicListActivity.MusicListActivity"
             android:exported="true">
 
             <meta-data
@@ -51,7 +53,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".musicPlayerActivity.MusicPlayerActivity"
+            android:name=".ui.musicPlayerActivity.MusicPlayerActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

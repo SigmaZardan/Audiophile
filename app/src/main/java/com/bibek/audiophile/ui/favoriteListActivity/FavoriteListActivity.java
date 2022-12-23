@@ -1,4 +1,4 @@
-package com.bibek.audiophile.favoriteListActivity;
+package com.bibek.audiophile.ui.favoriteListActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.FavoriteSongAdapter;
-import com.bibek.audiophile.adapter.SongAdapter;
 import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.SongModel;
 

@@ -4,12 +4,9 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.app.App;
-import com.bibek.audiophile.favoriteListActivity.FavoriteListActivity;
 import com.bibek.audiophile.model.SongModel;
-import com.bibek.audiophile.musicPlayerActivity.MusicPlayerActivity;
+import com.bibek.audiophile.ui.musicPlayerActivity.MusicPlayerActivity;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -135,7 +131,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                             case R.id.miRemoveFromFavoriteList:
                                 // handle the removal of the song from the favorite list
 
-                                deleteSongFromFavoriteList(currentSongPosition, view);
+                                removeSongFromFavoriteList(currentSongPosition, view);
                                 return true;
 
 
@@ -153,8 +149,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     }
 
 
+
     // handle the removal of element from the favorite list
-    private void deleteSongFromFavoriteList(int position, View view) {
+    private void removeSongFromFavoriteList(int position, View view) {
 
         App.db.songDao().delete(songModelArrayList.get(position));
         Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
@@ -203,6 +200,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     @Override
     public int getItemCount() {
         return songModelArrayList.size();
+    }
+
+    public void update(ArrayList<SongModel> updatedList) {
+        songModelArrayList.clear();
+        songModelArrayList.addAll(updatedList);
+        this.notifyDataSetChanged();
+
     }
 
 

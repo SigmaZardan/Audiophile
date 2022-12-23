@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#091227"
-    tools:context=".firstScreenActivity.FirstScreenActivity">
+    tools:context=".ui.firstScreenActivity.FirstScreenActivity">
 
     <ImageView
         android:id="@+id/ivAppIconOnTop"

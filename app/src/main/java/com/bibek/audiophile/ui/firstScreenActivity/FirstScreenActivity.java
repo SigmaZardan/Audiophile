@@ -1,4 +1,4 @@
-package com.bibek.audiophile.firstScreenActivity;
+package com.bibek.audiophile.ui.firstScreenActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,10 +11,10 @@ import android.util.Log;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.FirstScreenItemAdapter;
 import com.bibek.audiophile.adapter.RecyclerViewInterface;
-import com.bibek.audiophile.favoriteListActivity.FavoriteListActivity;
+import com.bibek.audiophile.ui.favoriteListActivity.FavoriteListActivity;
 import com.bibek.audiophile.model.FirstScreenItemModel;
-import com.bibek.audiophile.musicListActivity.MusicListActivity;
-import com.bibek.audiophile.playlistActivity.CreatePlaylistActivity;
+import com.bibek.audiophile.ui.musicListActivity.MusicListActivity;
+import com.bibek.audiophile.ui.playlistActivity.CreatePlaylistActivity;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class FirstScreenActivity extends AppCompatActivity implements RecyclerVi
 
 
         FirstScreenItemModel item3 = new FirstScreenItemModel();
-        item3.setFirstScreenItemIconId(R.drawable.playlist_icon);
+        item3.setFirstScreenItemIconId(R.drawable.playlist_icon_);
         item3.setFirstScreenItemTitle("Playlist");
         item3.setFirstScreenArrowIcon(R.drawable.next_icon);
 

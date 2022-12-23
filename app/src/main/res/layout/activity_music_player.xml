@@ -6,7 +6,7 @@
     android:background="#091227"
     android:padding="12dp"
     android:layout_height="match_parent"
-    tools:context=".musicPlayerActivity.MusicPlayerActivity">
+    tools:context=".ui.musicPlayerActivity.MusicPlayerActivity">
 
     <RelativeLayout
         android:id="@+id/rlBackAndPlayNow"

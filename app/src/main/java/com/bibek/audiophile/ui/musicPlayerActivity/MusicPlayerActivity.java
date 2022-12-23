@@ -1,4 +1,4 @@
-package com.bibek.audiophile.musicPlayerActivity;
+package com.bibek.audiophile.ui.musicPlayerActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
