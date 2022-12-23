@@ -15,15 +15,18 @@ import androidx.constraintlayout.utils.widget.ImageFilterView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bibek.audiophile.R;
+import com.bibek.audiophile.app.App;
+import com.bibek.audiophile.model.PlaylistModel;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapter.PlayListViewHolder>{
     private Context context;
-    private ArrayList<String> playlistArrayList;
+    private ArrayList<PlaylistModel> playlistArrayList;
 
-    public PlaylistViewAdapter(Context context, ArrayList<String> playlistArrayList) {
+    public PlaylistViewAdapter(Context context, ArrayList<PlaylistModel> playlistArrayList) {
         this.context = context;
         this.playlistArrayList = playlistArrayList;
     }
@@ -38,10 +41,28 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull PlaylistViewAdapter.PlayListViewHolder holder, int position) {
-        holder.tvPlaylistName.setText(playlistArrayList.get(position));
+        holder.tvPlaylistName.setText(playlistArrayList.get(position).getPlaylistName());
         holder.tvPlaylistName.setSelected(true);
+        int currentPosition = position;
 
 
+        holder.ibDeletePlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeFromPlaylist(currentPosition, view);
+            }
+        });
+
+
+
+    }
+
+    // remove playlist
+    private void removeFromPlaylist(int position, View view) {
+        App.db.playlistDao().delete(playlistArrayList.get(position));
+        playlistArrayList.remove(position);
+        this.notifyDataSetChanged();
+        Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
 
     }
 
@@ -66,5 +87,12 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
             tvPlaylistName = itemView.findViewById(R.id.tvPlaylistName);
             ibDeletePlaylist = itemView.findViewById(R.id.ibDeletePlaylist);
         }
+    }
+
+
+    public void update(ArrayList<PlaylistModel> updatedPlaylist){
+        playlistArrayList.clear();
+        playlistArrayList.addAll(updatedPlaylist);
+        this.notifyDataSetChanged();
     }
 }

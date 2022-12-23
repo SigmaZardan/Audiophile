@@ -183,6 +183,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
         if(deleted ){
             context.getContentResolver().delete(contentUri, null, null);
+            App.db.songDao().delete(songModelArrayList.get(position));//also delete from the database
             songModelArrayList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, songModelArrayList.size());

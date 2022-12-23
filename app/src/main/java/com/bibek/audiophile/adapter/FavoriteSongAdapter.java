@@ -92,7 +92,7 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
                 PopupMenu popup = new PopupMenu(context, view);
 
                 //inflating menu from xml resource
-                popup.inflate(R.menu.song_menu);
+                popup.inflate(R.menu.favorite_song_menu);
 
                 popup.show();
 
@@ -103,22 +103,8 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.miRemoveFromFavoriteList: // handle the song addition to favorite list
-
-                                boolean hasSameId = false;
-                                // checking if each songs id is same
-                                for(SongModel songModel : songListFromDatabase) {
-                                    hasSameId = (songModel.getId() == favoriteSongArrayList.get(currentPosition).getId());
-
-                                }
-                                if(hasSameId) {
-
-                                    Snackbar.make(view, "SONG ALREADY ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
-                                }
-                                else {
                                     removeFromFavoriteList(currentPosition, view);
-
-                                }
-                                return true;
+                                    return true;
 
                         }
 

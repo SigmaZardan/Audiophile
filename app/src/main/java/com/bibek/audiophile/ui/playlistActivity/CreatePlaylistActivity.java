@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Binder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +16,11 @@ import android.widget.TextView;
 
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.PlaylistViewAdapter;
+import com.bibek.audiophile.app.App;
+import com.bibek.audiophile.databinding.AddPlaylistDialogueBinding;
+import com.bibek.audiophile.model.PlaylistModel;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.w3c.dom.Text;
 
@@ -24,7 +31,7 @@ public class CreatePlaylistActivity extends AppCompatActivity {
     private RecyclerView rvPlaylist;
     private TextView tvNoPlaylist;
     private ImageView ivAddPlaylist;
-    private ArrayList<String> playlistArrayList =  new ArrayList<>();
+    private ArrayList<PlaylistModel> playlistArrayList =  new ArrayList<>();
     private PlaylistViewAdapter playlistViewAdapter;
 
     @Override
@@ -36,19 +43,12 @@ public class CreatePlaylistActivity extends AppCompatActivity {
         tvNoPlaylist = findViewById(R.id.tvNoPlaylist);
         ivAddPlaylist = findViewById(R.id.ivAddPlaylist);
 
-        // for demo
-
-        playlistArrayList.add("Anything in the context");
-        playlistArrayList.add("Tu janey na milke vi hum ma mile tumse na jane kiu");
-        playlistArrayList.add("milekeyhey fasle tumse na jane kiu");
-        playlistArrayList.add("Neffex Moves");
-        playlistArrayList.add("Neffex Moves");
-        playlistArrayList.add("Neffex Moves");
-        playlistArrayList.add("Neffex Moves");
-        playlistArrayList.add("Neffex Moves");
-        playlistArrayList.add("Neffex Moves");
 
 
+
+
+
+        playlistArrayList = (ArrayList<PlaylistModel>) App.db.playlistDao().getAllPlaylist();
 
         if(playlistArrayList.size() == 0) {
             tvNoPlaylist.setVisibility(View.VISIBLE);
@@ -62,15 +62,10 @@ public class CreatePlaylistActivity extends AppCompatActivity {
         customAlertDialogue();
 
 
-
-
-
-
-
-
     }
 
     private void customAlertDialogue() {
+
         ivAddPlaylist.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View view) {
@@ -78,6 +73,8 @@ public class CreatePlaylistActivity extends AppCompatActivity {
                                                  // Create an alert builder
                                                  AlertDialog.Builder builder
                                                          = new AlertDialog.Builder(CreatePlaylistActivity.this);
+                                                 //using binder to get the entered playlist name
+                                                 AddPlaylistDialogueBinding addPlaylistDialogueBinding = AddPlaylistDialogueBinding.bind(customAlertLayout);
 
                                                  builder.setView(customAlertLayout)
                                                          .setTitle("Playlist Details")
@@ -85,9 +82,19 @@ public class CreatePlaylistActivity extends AppCompatActivity {
                                                                  , new DialogInterface.OnClickListener() {
                                                                      @Override
                                                                      public void onClick(DialogInterface dialogInterface, int which) {
-                                                                         // add the playlist to the database
 
-                                                                         // also render the playlist in the CreatePlayList adapter
+
+                                                                         // get the inputted playlist name
+                                                                         String playlistName =addPlaylistDialogueBinding.tvPlaylistName.getText().toString();
+
+                                                                         // add the playlist to the database
+                                                                         addPlayListToDatabase(playlistName, view);
+
+
+
+                                                                         // also update the playlist
+                                                                         playlistViewAdapter.update((ArrayList<PlaylistModel>) App.db.playlistDao().getAllPlaylist());
+
 
                                                                      }
                                                                  });
@@ -102,11 +109,29 @@ public class CreatePlaylistActivity extends AppCompatActivity {
 
     }
 
-    private void renderPlayList(ArrayList<String> playlistArrayList) {
+    // render the playlist
+
+    private void renderPlayList(ArrayList<PlaylistModel> playlistArrayList) {
 
         playlistViewAdapter = new PlaylistViewAdapter(CreatePlaylistActivity.this, playlistArrayList);
         rvPlaylist.setLayoutManager(new GridLayoutManager(CreatePlaylistActivity.this, 2));
         rvPlaylist.setAdapter(playlistViewAdapter);
-
     }
+
+    //check if the playlist name is empty
+    private void addPlayListToDatabase(String playlistName , View view) {
+        if(playlistName.equals("")){
+            Snackbar.make(view, "THE NAME CANNOT BE BLANK!",Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            PlaylistModel playlistModel = new PlaylistModel();
+            playlistModel.setPlaylistName(playlistName);
+
+            App.db.playlistDao().insert(playlistModel);
+            Log.d("PLAYLIST_TEST", String.valueOf(App.db.playlistDao().getAllPlaylist().size()));
+            Snackbar.make(view, "PLAYLIST ADDED",Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
 }
