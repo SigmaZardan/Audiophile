@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,19 +45,10 @@ public class CreatePlaylistActivity extends AppCompatActivity {
         ivAddPlaylist = findViewById(R.id.ivAddPlaylist);
 
 
-
-
-
-
         playlistArrayList = (ArrayList<PlaylistModel>) App.db.playlistDao().getAllPlaylist();
 
-        if(playlistArrayList.size() == 0) {
-            tvNoPlaylist.setVisibility(View.VISIBLE);
-        }
 
-        else {
             renderPlayList(playlistArrayList);
-        }
 
         // handle the click on the add playlist icon
         customAlertDialogue();
@@ -83,6 +75,8 @@ public class CreatePlaylistActivity extends AppCompatActivity {
                                                                      @Override
                                                                      public void onClick(DialogInterface dialogInterface, int which) {
 
+                                                                         tvNoPlaylist.setVisibility(View.GONE);
+
 
                                                                          // get the inputted playlist name
                                                                          String playlistName =addPlaylistDialogueBinding.tvPlaylistName.getText().toString();
@@ -91,9 +85,11 @@ public class CreatePlaylistActivity extends AppCompatActivity {
                                                                          addPlayListToDatabase(playlistName, view);
 
 
-
                                                                          // also update the playlist
-                                                                         playlistViewAdapter.update((ArrayList<PlaylistModel>) App.db.playlistDao().getAllPlaylist());
+                                                                         if(playlistViewAdapter!=null) {
+                                                                             playlistViewAdapter.update((ArrayList<PlaylistModel>) App.db.playlistDao().getAllPlaylist());
+                                                                         }
+
 
 
                                                                      }
@@ -127,9 +123,9 @@ public class CreatePlaylistActivity extends AppCompatActivity {
             PlaylistModel playlistModel = new PlaylistModel();
             playlistModel.setPlaylistName(playlistName);
 
-            App.db.playlistDao().insert(playlistModel);
-            Log.d("PLAYLIST_TEST", String.valueOf(App.db.playlistDao().getAllPlaylist().size()));
-            Snackbar.make(view, "PLAYLIST ADDED",Snackbar.LENGTH_LONG).show();
+                App.db.playlistDao().insert(playlistModel);
+                Log.d("PLAYLIST_TEST", String.valueOf(App.db.playlistDao().getAllPlaylist().size()));
+                Snackbar.make(view, "PLAYLIST ADDED",Snackbar.LENGTH_LONG).show();
 
         }
     }

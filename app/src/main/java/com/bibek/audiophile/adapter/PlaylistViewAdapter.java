@@ -3,6 +3,7 @@ package com.bibek.audiophile.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.PlaylistModel;
+import com.bibek.audiophile.ui.firstScreenActivity.FirstScreenActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -59,10 +61,22 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
 
     // remove playlist
     private void removeFromPlaylist(int position, View view) {
-        App.db.playlistDao().delete(playlistArrayList.get(position));
-        playlistArrayList.remove(position);
-        this.notifyDataSetChanged();
-        Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
+
+        if(playlistArrayList.size() == 1) {
+            App.db.playlistDao().delete(playlistArrayList.get(position));
+            playlistArrayList.remove(position);
+            Intent intent = new Intent(context, FirstScreenActivity.class);
+            context.startActivity(intent);
+
+        }
+        else {
+            App.db.playlistDao().delete(playlistArrayList.get(position));
+            playlistArrayList.remove(position);
+            this.notifyDataSetChanged();
+            Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
+
+        }
+
 
     }
 

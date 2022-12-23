@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.SongModel;
+import com.bibek.audiophile.ui.firstScreenActivity.FirstScreenActivity;
 import com.bibek.audiophile.ui.musicPlayerActivity.MusicPlayerActivity;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +28,6 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
     private Context context;
     private ArrayList<SongModel> favoriteSongArrayList;
 
-    private ArrayList<SongModel> songListFromDatabase;
 
 
     public FavoriteSongAdapter(Context context, ArrayList<SongModel> favoriteSongArrayList) {
@@ -96,7 +96,7 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
 
                 popup.show();
 
-                songListFromDatabase = (ArrayList<SongModel>) App.db.songDao().getAllSongs();
+
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -120,12 +120,24 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
     //method to remove the song from favorite list
 
     private void removeFromFavoriteList(int position, View view) {
+        if(favoriteSongArrayList.size() == 1) {
+
+            App.db.songDao().delete(favoriteSongArrayList.get(position));
+            favoriteSongArrayList.remove(position);
+            Intent  intent = new Intent(context, FirstScreenActivity.class);
+            context.startActivity(intent);
+
+        }
+        else {
+            App.db.songDao().delete(favoriteSongArrayList.get(position));
+            favoriteSongArrayList.remove(position);
+            notifyDataSetChanged();
+            Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
+
+        }
 
 
-        App.db.songDao().delete(favoriteSongArrayList.get(position));
-        favoriteSongArrayList.remove(position);
-        notifyDataSetChanged();
-        Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
+
 
     }
 

@@ -105,19 +105,14 @@ public class MusicListActivity extends AppCompatActivity {
 
      // render the songs in the music list UI
     private void renderSongs(ArrayList<SongModel> songModelArrayList)  {
-
-        if(songModelArrayList.size() == 0 ) {
-            tvNoSongs.setVisibility(View.VISIBLE);
-
-        }
-        else {
-            // use the recycler view to render songs
+            tvNoSongs.setVisibility(View.GONE);
+            //use the recycler view to render songs
 
              songAdapter = new SongAdapter(context , songModelArrayList);
             rvSongs.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false));
             rvSongs.setAdapter(songAdapter);
 
-        }
+
 
     }
 
