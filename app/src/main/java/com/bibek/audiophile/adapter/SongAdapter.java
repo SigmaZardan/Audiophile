@@ -163,7 +163,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     private void addToFavoriteList(int position, View view) {
 
-            App.db.songDao().insert(songModelArrayList.get(position));
+            App.db.songDao().update(true,songModelArrayList.get(position).getId());
             Snackbar.make(view, "SONG ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
             Log.d("DB_TEST" , "Database Size ==>" + App.db.songDao().getAllSongs().size());
 

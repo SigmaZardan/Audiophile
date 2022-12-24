@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.SongAdapter;
+import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.SongModel;
 import com.bibek.audiophile.ui.firstScreenActivity.FirstScreenActivity;
 
@@ -71,10 +72,7 @@ public class MusicListActivity extends AppCompatActivity {
         ArrayList<SongModel> songModelArrayList = addSongsToList(cursor);
 
 
-
-
-
-       // render the song
+        // render the song
            renderSongs(songModelArrayList);
 
 
@@ -91,7 +89,8 @@ public class MusicListActivity extends AppCompatActivity {
                     cursor.getString(0),
                     cursor.getString(3),
                     cursor.getString(1),
-                   Integer.parseInt(cursor.getString(4))
+                   Integer.parseInt(cursor.getString(4)),
+                    false
                     );
 
             // check if the song exists in the database

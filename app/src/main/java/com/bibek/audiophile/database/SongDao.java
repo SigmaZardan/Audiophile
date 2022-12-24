@@ -23,10 +23,13 @@ public interface SongDao {
 
 
 
-    @Update
-    void update(SongModel songModel);
+    @Query("UPDATE songModel SET isFavorite=:isFavorite WHERE id= :id")
+    void update(boolean isFavorite, int id);
 
     @Query("SELECT * FROM songModel")
     List<SongModel> getAllSongs();
+
+    @Query("SELECT * FROM songModel WHERE isFavorite=:isFavorite")
+    List<SongModel> getAllFavoriteSongs(boolean isFavorite);
 
 }

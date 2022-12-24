@@ -16,17 +16,27 @@ public class SongModel implements Serializable {
     private String artist;
     @PrimaryKey(autoGenerate = true) @NonNull
     private int id;
+    private boolean isFavorite;
 
 
 
-    public SongModel(String path, String title, String duration, String artist,int id) {
+    public SongModel(String path, String title, String duration, String artist,int id , boolean isFavorite) {
         this.path = path;
         this.title = title;
         this.duration = duration;
         this.artist = artist;
         this.id = id;
+        this.isFavorite = isFavorite;
     }
 
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 
     public String getPath() {
         return path;

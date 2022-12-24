@@ -37,7 +37,7 @@ public class FavoriteListActivity extends AppCompatActivity {
 
 
         //storing all the songs from database to the list
-        favoriteSongsList = (ArrayList<SongModel>)App.db.songDao().getAllSongs();
+        favoriteSongsList = (ArrayList<SongModel>)App.db.songDao().getAllFavoriteSongs(true);
 
 
 
@@ -50,7 +50,6 @@ public class FavoriteListActivity extends AppCompatActivity {
             renderFavoriteSongs(favoriteSongsList);
 
         }
-
     }
 
     // render the songs in the music list UI
