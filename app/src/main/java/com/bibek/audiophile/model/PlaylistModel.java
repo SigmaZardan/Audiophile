@@ -9,16 +9,16 @@ import androidx.room.PrimaryKey;
 public class PlaylistModel {
 
     @PrimaryKey(autoGenerate = true) @NonNull
-    private int id;
+    private int playlistId;
     private String playlistName;
 
 
-    public int getId() {
-        return id;
+    public int getPlaylistId() {
+        return playlistId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPlaylistId(int playlistId) {
+        this.playlistId = playlistId;
     }
 
     public String getPlaylistName() {

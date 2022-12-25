@@ -15,17 +15,17 @@ public class SongModel implements Serializable {
     private String duration;
     private String artist;
     @PrimaryKey(autoGenerate = true) @NonNull
-    private int id;
+    private int songId;
     private boolean isFavorite;
 
 
 
-    public SongModel(String path, String title, String duration, String artist,int id , boolean isFavorite) {
+    public SongModel(String path, String title, String duration, String artist,int songId , boolean isFavorite) {
         this.path = path;
         this.title = title;
         this.duration = duration;
         this.artist = artist;
-        this.id = id;
+        this.songId = songId;
         this.isFavorite = isFavorite;
     }
 
@@ -70,11 +70,12 @@ public class SongModel implements Serializable {
         this.artist = artist;
     }
 
-    public int getId() {
-        return id;
+
+    public int getSongId() {
+        return songId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSongId(int songId) {
+        this.songId = songId;
     }
 }

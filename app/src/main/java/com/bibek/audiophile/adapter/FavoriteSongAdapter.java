@@ -122,14 +122,14 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
     private void removeFromFavoriteList(int position, View view) {
         if(favoriteSongArrayList.size() == 1) {
 
-            App.db.songDao().update(false,favoriteSongArrayList.get(position).getId());
+            App.db.songDao().update(false,favoriteSongArrayList.get(position).getSongId());
             favoriteSongArrayList.remove(position);
             Intent  intent = new Intent(context, FirstScreenActivity.class);
             context.startActivity(intent);
 
         }
         else {
-            App.db.songDao().update(false,favoriteSongArrayList.get(position).getId());
+            App.db.songDao().update(false,favoriteSongArrayList.get(position).getSongId());
             favoriteSongArrayList.remove(position);
             notifyDataSetChanged();
             Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();

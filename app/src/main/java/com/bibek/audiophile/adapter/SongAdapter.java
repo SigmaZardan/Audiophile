@@ -102,7 +102,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
               popup.show();
 
-                favoriteList = (ArrayList<SongModel>) App.db.songDao().getAllSongs();
+                favoriteList = (ArrayList<SongModel>) App.db.songDao().getAllFavoriteSongs(true);
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -113,7 +113,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                                 boolean hasSameId = false;
                                 // checking if each songs id is same
                                 for(SongModel songModel : favoriteList) {
-                                     hasSameId = (songModel.getId() == songModelArrayList.get(currentSongPosition).getId());
+                                     hasSameId = (songModel.getSongId() == songModelArrayList.get(currentSongPosition).getSongId());
 
                                 }
                                 if(hasSameId) {
@@ -153,7 +153,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     // handle the removal of element from the favorite list
     private void removeSongFromFavoriteList(int position, View view) {
 
-        App.db.songDao().delete(songModelArrayList.get(position));
+        App.db.songDao().update( false, songModelArrayList.get(position).getSongId());
         Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
 
 
@@ -163,7 +163,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     private void addToFavoriteList(int position, View view) {
 
-            App.db.songDao().update(true,songModelArrayList.get(position).getId());
+            App.db.songDao().update(true,songModelArrayList.get(position).getSongId());
             Snackbar.make(view, "SONG ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
             Log.d("DB_TEST" , "Database Size ==>" + App.db.songDao().getAllSongs().size());
 
@@ -176,7 +176,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
 
         Uri contentUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI ,
-                Long.parseLong( String.valueOf(songModelArrayList.get(position).getId())));
+                Long.parseLong( String.valueOf(songModelArrayList.get(position).getSongId())));
 
         File file = new File(songModelArrayList.get(position).getPath());
         boolean deleted = file.delete();

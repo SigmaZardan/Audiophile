@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class FavoriteListActivity extends AppCompatActivity {
 
         //storing all the songs from database to the list
         favoriteSongsList = (ArrayList<SongModel>)App.db.songDao().getAllFavoriteSongs(true);
+        Log.d("Favorite songs", String.valueOf(favoriteSongsList.size()));
 
 
 
