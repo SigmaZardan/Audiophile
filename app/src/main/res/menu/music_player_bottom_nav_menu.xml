@@ -2,19 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/miSongs"
-       android:title="Songs"
-        android:icon="@drawable/music_icon"
+        android:id="@+id/miAddToPlaylist"
+       android:title="Add To Playlist"
+        android:icon="@drawable/add_icon"
         />
     <item
-        android:id="@+id/miFavorite"
-        android:title="Favorite"
-        android:icon="@drawable/favorite_icon"
+        android:id="@+id/miRemoveFromPlaylist"
+        android:title="Remove From Playlist"
+        android:icon="@drawable/close_icon"
         />
-    <item
-        android:id="@+id/miSettings"
-        android:title="Settings"
-        android:icon="@drawable/settings_icon"
-        />
+
 
 </menu>

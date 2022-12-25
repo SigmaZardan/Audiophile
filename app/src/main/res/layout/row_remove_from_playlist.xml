@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rlSongsSection"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:paddingTop="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivRemoveFromPlaylist"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivSongIcon"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvArtistNameForSongsInRemoveList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_light"
+            android:paddingTop="10dp"
+            android:text="bibek"
+            android:textColor="#A5C0FF"
+            android:textSize="10sp"
+            tools:layout_editor_absoluteX="118dp"
+            tools:layout_editor_absoluteY="44dp" />
+
+        <TextView
+            android:id="@+id/tvSongTitleForSongsInRemoveList"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center"
+            android:marqueeRepeatLimit="@integer/material_motion_duration_medium_1"
+            android:singleLine="true"
+            android:text="For the sake of what"
+            android:textColor="#FFEAF0FF"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteY="24dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivSongIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/song_list_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rlSongsSection"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivRemoveFromPlaylist"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ripple"
+        android:src="@drawable/trash_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/rlSongsSection"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#EAF0FF" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="#7F8591"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlSongsSection" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

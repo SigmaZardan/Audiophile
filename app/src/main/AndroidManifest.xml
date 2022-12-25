@@ -16,9 +16,29 @@
         android:theme="@style/Theme.Audiophile"
         tools:targetApi="31">
         <activity
+            android:name=".ui.playlistActivity.RemoveFromPlaylistActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.playlistActivity.AddToPlaylistActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.playlistActivity.PlaylistInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.playlistActivity.CreatePlaylistActivity"
             android:exported="true">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -39,7 +59,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -47,7 +66,6 @@
         <activity
             android:name=".ui.musicListActivity.MusicListActivity"
             android:exported="true">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

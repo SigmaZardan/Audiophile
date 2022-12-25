@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Binder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,14 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bibek.audiophile.R;
-import com.bibek.audiophile.adapter.PlaylistViewAdapter;
+import com.bibek.audiophile.adapter.CreatePlaylistAdapter;
 import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.databinding.AddPlaylistDialogueBinding;
 import com.bibek.audiophile.model.PlaylistModel;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -33,7 +28,7 @@ public class CreatePlaylistActivity extends AppCompatActivity {
     private TextView tvNoPlaylist;
     private ImageView ivAddPlaylist;
     private ArrayList<PlaylistModel> playlistArrayList =  new ArrayList<>();
-    private PlaylistViewAdapter playlistViewAdapter;
+    private CreatePlaylistAdapter playlistViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +104,7 @@ public class CreatePlaylistActivity extends AppCompatActivity {
 
     private void renderPlayList(ArrayList<PlaylistModel> playlistArrayList) {
 
-        playlistViewAdapter = new PlaylistViewAdapter(CreatePlaylistActivity.this, playlistArrayList);
+        playlistViewAdapter = new CreatePlaylistAdapter(CreatePlaylistActivity.this, playlistArrayList);
         rvPlaylist.setLayoutManager(new GridLayoutManager(CreatePlaylistActivity.this, 2));
         rvPlaylist.setAdapter(playlistViewAdapter);
     }
