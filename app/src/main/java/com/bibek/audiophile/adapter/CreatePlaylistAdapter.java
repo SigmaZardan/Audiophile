@@ -51,6 +51,8 @@ public class CreatePlaylistAdapter extends RecyclerView.Adapter<CreatePlaylistAd
            public void onClick(View view) {
 
                Intent intent = new Intent(context, PlaylistInfoActivity.class);
+               intent.putExtra("PLAYLIST ID", playlistArrayList.get(currentPosition).getPlaylistId());
+               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                context.startActivity(intent);
            }
        });
@@ -71,17 +73,17 @@ public class CreatePlaylistAdapter extends RecyclerView.Adapter<CreatePlaylistAd
     private void removeFromPlaylist(int position, View view) {
 
         if(playlistArrayList.size() == 1) {
-            App.db.playlistDao().delete(playlistArrayList.get(position));
+            App.db.dao().deletePlaylist(playlistArrayList.get(position).getPlaylistId());
             playlistArrayList.remove(position);
             Intent intent = new Intent(context, FirstScreenActivity.class);
             context.startActivity(intent);
 
         }
         else {
-            App.db.playlistDao().delete(playlistArrayList.get(position));
+            App.db.dao().deletePlaylist(playlistArrayList.get(position).getPlaylistId());
             playlistArrayList.remove(position);
             this.notifyDataSetChanged();
-            Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, "PLAYLIST REMOVED", Snackbar.LENGTH_LONG).show();
 
         }
 

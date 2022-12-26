@@ -76,12 +76,11 @@ public class MusicListActivity extends AppCompatActivity {
         // render the song
            renderSongs(songModelArrayList);
 
-           // only add the songs the database when it has no songs
-           if(App.db.songDao().getAllSongs().size() == 0 ) {
+           // refresh and add the songs to the database
                for(SongModel song : songModelArrayList) {
                    App.db.songDao().insert(song);
                }
-           }
+
 
 
 

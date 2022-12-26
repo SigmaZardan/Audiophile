@@ -118,8 +118,8 @@ public class CreatePlaylistActivity extends AppCompatActivity {
             PlaylistModel playlistModel = new PlaylistModel();
             playlistModel.setPlaylistName(playlistName);
 
-                App.db.playlistDao().insert(playlistModel);
-                Log.d("PLAYLIST_TEST", String.valueOf(App.db.playlistDao().getAllPlaylist().size()));
+                App.db.dao().insertPlaylist(playlistModel);
+                Log.d("PLAYLIST_TEST", String.valueOf(App.db.dao().getAllPlaylist().size()));
                 Snackbar.make(view, "PLAYLIST ADDED",Snackbar.LENGTH_LONG).show();
 
         }

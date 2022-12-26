@@ -9,9 +9,10 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.bibek.audiophile.model.PlaylistModel;
+import com.bibek.audiophile.model.PlaylistSongCrossReference;
 import com.bibek.audiophile.model.SongModel;
 
-@Database(entities = {SongModel.class, PlaylistModel.class}, version = 1, exportSchema = false)
+@Database(entities = {SongModel.class, PlaylistModel.class, PlaylistSongCrossReference.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "songbase";
 
@@ -20,6 +21,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract SongDao songDao();
 
     public abstract PlaylistDao playlistDao();
+
+    public abstract Dao dao();
 
     public static AppDatabase getInstance(Context context) {
 

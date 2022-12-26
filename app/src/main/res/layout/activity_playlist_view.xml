@@ -12,6 +12,8 @@
         android:id="@+id/rvPlaylistSongs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="?attr/actionBarSize"
+        android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,13 +38,13 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
+        android:layout_width="387dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/music_player_bottom_nav_menu"/>
+        app:menu="@menu/music_player_bottom_nav_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

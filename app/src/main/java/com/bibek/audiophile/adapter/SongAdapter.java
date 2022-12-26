@@ -203,6 +203,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         return songModelArrayList.size();
     }
 
+    // update the items in resume
+
     public void update(ArrayList<SongModel> updatedList) {
         songModelArrayList.clear();
         songModelArrayList.addAll(updatedList);

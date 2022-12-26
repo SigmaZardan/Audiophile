@@ -27,12 +27,15 @@ public class RemoveFromPlaylistAdapter extends RecyclerView.Adapter<RemoveFromPl
 
     private Context context;
     private ArrayList<SongModel> songModelArrayList;
+    private int playlistId;
 
 
 
-    public RemoveFromPlaylistAdapter(Context context, ArrayList<SongModel> songModelArrayList) {
+
+    public RemoveFromPlaylistAdapter(Context context, ArrayList<SongModel> songModelArrayList, int playlistId) {
         this.context = context;
         this.songModelArrayList = songModelArrayList;
+        this.playlistId = playlistId;
     }
 
     @NonNull
@@ -45,8 +48,21 @@ public class RemoveFromPlaylistAdapter extends RecyclerView.Adapter<RemoveFromPl
     @Override
     public void onBindViewHolder(@NonNull RemoveFromPlaylistAdapter.RemoveFromPlaylistViewHolder holder, int position) {
         SongModel songModel = songModelArrayList.get(position);
+        int currentPosition = position;
         holder.tvSongTitle.setText(songModel.getTitle());
         holder.tvArtistName.setText(songModel.getArtist());
+
+
+
+
+        holder.ivRemoveFromPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                App.db.dao().deleteSongs(playlistId, songModel.getSongId());
+                Snackbar.make(view, "SONG REMOVED FROM PLAYLIST", Snackbar.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -61,11 +77,13 @@ public class RemoveFromPlaylistAdapter extends RecyclerView.Adapter<RemoveFromPl
 
         private TextView tvSongTitle;
         private TextView tvArtistName;
+        private ImageView ivRemoveFromPlaylist;
         public RemoveFromPlaylistViewHolder (@NonNull View itemView) {
             super(itemView);
 
             tvSongTitle = itemView.findViewById(R.id.tvSongTitleForSongsInRemoveList );
             tvArtistName = itemView.findViewById(R.id.tvArtistNameForSongsInRemoveList);
+            ivRemoveFromPlaylist = itemView.findViewById(R.id.ivRemoveFromPlaylist);
         }
 
     }
