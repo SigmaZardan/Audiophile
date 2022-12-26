@@ -123,7 +123,6 @@ public class FavoriteSongAdapter extends RecyclerView.Adapter<FavoriteSongAdapte
         if(favoriteSongArrayList.size() == 1) {
 
             App.db.songDao().update(false,favoriteSongArrayList.get(position).getSongId());
-            favoriteSongArrayList.remove(position);
             Intent  intent = new Intent(context, FirstScreenActivity.class);
             context.startActivity(intent);
 

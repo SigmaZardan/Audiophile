@@ -42,16 +42,20 @@ public class FavoriteListActivity extends AppCompatActivity {
         Log.d("Favorite songs", String.valueOf(favoriteSongsList.size()));
 
 
-
-
-       // render the favorite songs
         if(favoriteSongsList.size() == 0) {
+
             tvNoFavoriteSongs.setVisibility(View.VISIBLE);
         }
+
         else {
             renderFavoriteSongs(favoriteSongsList);
 
         }
+
+
+
+
+
     }
 
     // render the songs in the music list UI

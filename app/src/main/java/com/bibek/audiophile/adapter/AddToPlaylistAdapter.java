@@ -25,6 +25,9 @@ import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdapter.AddToPlaylistViewHolder>{
 
@@ -64,6 +67,12 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
             }
         });
 
+        // getting all the songs that are in the playlist
+        List<PlaylistWithSongs> playlistWithSongsList = App.db.dao().getPlaylistWithSongs(playlistId);
+
+
+
+
 
 
         holder.ivAddToPlaylist.setOnClickListener(new View.OnClickListener() {
@@ -71,22 +80,32 @@ public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdap
             public void onClick(View view) {
                 // check if the song is already added to the playlist
 
-                boolean isSongExists = false;
-
-                // check if the songs already exists in the playlist
-                for(PlaylistWithSongs playlistWithSongs : App.db.dao().getPlaylistWithSongs(playlistId)){
-                    for(SongModel song : playlistWithSongs.songs) {
-                        isSongExists = (song.getSongId() == songModelArrayList.get(currentPosition).getSongId());
-                    }
-                }
-
-                if(isSongExists) {
-                    Snackbar.make(view, "SONG ALREADY ADDED TO THE PLAYLIST", Snackbar.LENGTH_LONG).show();
-                }
-                else {
+//                boolean isSongExists = false;
+//
+//                // check if the songs already exists in the playlist
+//                for(PlaylistWithSongs playlistWithSongs : playlistWithSongsList){
+//                    for(SongModel song : playlistWithSongs.songs) {
+//                        isSongExists = (song.getSongId() == songModelArrayList.get(currentPosition).getSongId());
+//                    }
+//                }
+                int count = App.db.dao().countBysSongId(songModelArrayList.get(currentPosition).getSongId() , playlistId);
+                if(count == 0){
                     addSongsToPlaylist(currentPosition, view);
 
                 }
+                else {
+
+                    Snackbar.make(view, "SONG ALREADY ADDED TO THE PLAYLIST", Snackbar.LENGTH_LONG).show();
+
+                }
+//
+//                if(isSongExists) {
+//                    Snackbar.make(view, "SONG ALREADY ADDED TO THE PLAYLIST", Snackbar.LENGTH_LONG).show();
+//                }
+//                else {
+//                    addSongsToPlaylist(currentPosition, view);
+//
+//                }
 
             }
         });

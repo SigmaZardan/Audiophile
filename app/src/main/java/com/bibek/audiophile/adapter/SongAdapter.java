@@ -102,7 +102,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
               popup.show();
 
-                favoriteList = (ArrayList<SongModel>) App.db.songDao().getAllFavoriteSongs(true);
+                favoriteList = (ArrayList<SongModel>) App.db.songDao().getAllSongs();
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -110,20 +110,31 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                         switch (menuItem.getItemId()){
                             case R.id.miAddToFavorite: // handle the song addition to favorite list
 
-                                boolean hasSameId = false;
-                                // checking if each songs id is same
-                                for(SongModel songModel : favoriteList) {
-                                     hasSameId = (songModel.getSongId() == songModelArrayList.get(currentSongPosition).getSongId());
-
-                                }
-                                if(hasSameId) {
-
-                                    Snackbar.make(view, "SONG ALREADY ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
-                                }
-                                else {
+                                int count = App.db.songDao().countBysSongId(songModelArrayList.get(currentSongPosition).getSongId() , true);
+                                if(count == 0){
                                     addToFavoriteList(currentSongPosition, view);
 
                                 }
+                                else {
+
+                                    Snackbar.make(view, "SONG ALREADY ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
+
+                                }
+
+//                                boolean hasSameId = false;
+//                                // checking if each songs id is same
+//                                for(SongModel songModel : favoriteList) {
+//                                     hasSameId = (songModel.getSongId() == songModelArrayList.get(currentSongPosition).getSongId());
+//
+//                                }
+//                                if(hasSameId) {
+//
+//                                    Snackbar.make(view, "SONG ALREADY ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
+//                                }
+//                                else {
+//
+//
+//                                }
                                 return true;
 
 
@@ -153,7 +164,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     // handle the removal of element from the favorite list
     private void removeSongFromFavoriteList(int position, View view) {
 
-        App.db.songDao().update( false, songModelArrayList.get(position).getSongId());
+        App.db.songDao().update( false,songModelArrayList.get(position).getSongId());
         Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
 
 
@@ -163,7 +174,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     private void addToFavoriteList(int position, View view) {
 
-            App.db.songDao().update(true,songModelArrayList.get(position).getSongId());
+            App.db.songDao().update( true, songModelArrayList.get(position).getSongId());
             Snackbar.make(view, "SONG ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
             Log.d("DB_TEST" , "Database Size ==>" + App.db.songDao().getAllSongs().size());
 

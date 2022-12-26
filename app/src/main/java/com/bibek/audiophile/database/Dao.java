@@ -17,7 +17,8 @@ import java.util.List;
 @androidx.room.Dao
 public interface Dao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+
+    @Insert
     void insertSong(SongModel songModel);
 
     @Delete
@@ -47,6 +48,9 @@ public interface Dao {
 
     @Query("DELETE FROM PlaylistSongCrossReference WHERE playlistId = :playlistId AND songId = :songId")
     void deleteSongs(int playlistId , int songId);
+
+    @Query("SELECT COUNT(*) FROM PlaylistSongCrossReference WHERE songId = :songId AND playlistId=:playlistId")
+    int countBysSongId(int songId, int playlistId);
 
 
 

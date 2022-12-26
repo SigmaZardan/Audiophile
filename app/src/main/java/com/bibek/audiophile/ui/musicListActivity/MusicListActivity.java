@@ -73,13 +73,14 @@ public class MusicListActivity extends AppCompatActivity {
 
 
 
-        // render the song
-           renderSongs(songModelArrayList);
 
            // refresh and add the songs to the database
                for(SongModel song : songModelArrayList) {
                    App.db.songDao().insert(song);
                }
+
+        // render the song
+        renderSongs((ArrayList<SongModel>) App.db.songDao().getAllSongs());
 
 
 

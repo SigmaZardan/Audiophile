@@ -33,4 +33,7 @@ public interface SongDao {
     @Query("SELECT * FROM songModel WHERE isFavorite=:isFavorite")
     List<SongModel> getAllFavoriteSongs(boolean isFavorite);
 
+    @Query("SELECT COUNT(*) FROM SongModel WHERE songId = :songId AND isFavorite=:isFavorite")
+    int countBysSongId(int songId, boolean isFavorite);
+
 }
