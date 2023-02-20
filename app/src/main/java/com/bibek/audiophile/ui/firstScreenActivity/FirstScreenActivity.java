@@ -39,12 +39,6 @@ public class FirstScreenActivity extends AppCompatActivity implements RecyclerVi
         item1.setFirstScreenArrowIcon(R.drawable.next_icon);
 
 
-        FirstScreenItemModel item2 = new FirstScreenItemModel();
-        item2.setFirstScreenItemIconId(R.drawable.favorite_icon);
-        item2.setFirstScreenItemTitle("Favorite");
-        item2.setFirstScreenArrowIcon(R.drawable.next_icon);
-
-
         FirstScreenItemModel item3 = new FirstScreenItemModel();
         item3.setFirstScreenItemIconId(R.drawable.playlist_icon_);
         item3.setFirstScreenItemTitle("Playlist");
@@ -52,7 +46,6 @@ public class FirstScreenActivity extends AppCompatActivity implements RecyclerVi
 
 
         firstScreenItemModelArrayList.add(item1);
-        firstScreenItemModelArrayList.add(item2);
         firstScreenItemModelArrayList.add(item3);
 
 
@@ -79,14 +72,10 @@ public class FirstScreenActivity extends AppCompatActivity implements RecyclerVi
                       startActivity(intent);
                       break;
 
-            case 1 : intent = new Intent(FirstScreenActivity.this, FavoriteListActivity.class);
+            case 1 : intent = new Intent(FirstScreenActivity.this, CreatePlaylistActivity.class);
                      startActivity(intent);
                      break;
 
-
-            case 2 : intent = new Intent(FirstScreenActivity.this, CreatePlaylistActivity.class);
-                    startActivity(intent);
-                    break;
 
 
             default: System.out.println("Just click on the items");

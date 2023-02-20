@@ -2,20 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-
-    <item
-        android:id="@+id/miAddToFavorite"
-        android:title="Add To Favorite"
-        app:showAsAction="never"
-        />
-
-    <item
-        android:id="@+id/miRemoveFromFavoriteList"
-        android:title="Remove from Favorites"
-        app:showAsAction="never"
-        />
-
-
     <item
         android:id="@+id/miDelete"
         android:title="Delete"

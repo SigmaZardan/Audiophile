@@ -108,37 +108,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
-                            case R.id.miAddToFavorite: // handle the song addition to favorite list
-
-                                int count = App.db.songDao().countBysSongId(songModelArrayList.get(currentSongPosition).getSongId() , true);
-                                if(count == 0){
-                                    addToFavoriteList(currentSongPosition, view);
-
-                                }
-                                else {
-
-                                    Snackbar.make(view, "SONG ALREADY ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
-
-                                }
-
-//                                boolean hasSameId = false;
-//                                // checking if each songs id is same
-//                                for(SongModel songModel : favoriteList) {
-//                                     hasSameId = (songModel.getSongId() == songModelArrayList.get(currentSongPosition).getSongId());
-//
-//                                }
-//                                if(hasSameId) {
-//
-//                                    Snackbar.make(view, "SONG ALREADY ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
-//                                }
-//                                else {
-//
-//
-//                                }
-                                return true;
-
-
-
                             case R.id.miRemoveFromFavoriteList:
                                 // handle the removal of the song from the favorite list
 
