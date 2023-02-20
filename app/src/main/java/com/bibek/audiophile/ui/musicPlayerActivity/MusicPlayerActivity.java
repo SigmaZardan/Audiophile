@@ -2,21 +2,27 @@ package com.bibek.audiophile.ui.musicPlayerActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.databinding.ActivityMusicPlayerBinding;
 import com.bibek.audiophile.model.SongModel;
+import com.bibek.audiophile.services.MusicService;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class MusicPlayerActivity extends AppCompatActivity {
+public class MusicPlayerActivity extends AppCompatActivity implements ServiceConnection {
 
 
     ActivityMusicPlayerBinding binding;
@@ -27,6 +33,10 @@ public class MusicPlayerActivity extends AppCompatActivity {
 
     //MediaPlayer instance
     private MediaPlayer mediaPlayer = SongMediaPlayer.getInstance();
+
+    // instance of Music Service
+
+    MusicService musicService;
 
 
     @Override
@@ -42,9 +52,20 @@ public class MusicPlayerActivity extends AppCompatActivity {
         setComponentsWithSongResources();
 
         handleTheUIComponentsOnRealTime();
+
+        Intent intent = new Intent(this, MusicService.class);
+        bindService(intent , this, BIND_AUTO_CREATE);
+
+
+
+
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unbindService(this);
+    }
 
     private void handleTheUIComponentsOnRealTime() {
         // run on UI thread
@@ -223,5 +244,20 @@ public class MusicPlayerActivity extends AppCompatActivity {
          long seconds = TimeUnit.MILLISECONDS.toSeconds(milliseconds) % TimeUnit.MINUTES.toSeconds(1);
         return String.format(Locale.US,"%02d:%02d",minutes, seconds);
 
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        MusicService.MyBinder binder = (MusicService.MyBinder) iBinder;
+        musicService = binder.getService();
+        Log.e("Connected",musicService + " ");
+
+
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+        musicService = null;
+        Log.e("Disconnected" ,musicService + " ");
     }
 }
