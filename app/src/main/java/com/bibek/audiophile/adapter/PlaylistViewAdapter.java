@@ -56,7 +56,7 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
 
                 // create an instance or return the existing instance of SongMediaPlayer(Singleton class)
                 //
-                SongMediaPlayer.getInstance().reset(); // reset  everything first
+             //   SongMediaPlayer.getInstance().reset(); // reset  everything first
 
                 // set the current position of the song clicked
                 SongMediaPlayer.currentIndex = position;
