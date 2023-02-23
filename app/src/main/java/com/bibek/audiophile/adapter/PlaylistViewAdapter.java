@@ -1,5 +1,6 @@
 package com.bibek.audiophile.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -42,9 +43,9 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaylistViewAdapter.PlaylistViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlaylistViewAdapter.PlaylistViewHolder holder, @SuppressLint("RecyclerView") int position) {
         SongModel song = songModelArrayList.get(position);
-        int currentSongPosition = position;
+
         holder.tvSongTitle.setText(song.getTitle());
         holder.tvArtistName.setText(song.getArtist());
 
@@ -59,7 +60,7 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
                 SongMediaPlayer.getInstance().reset(); // reset  everything first
 
                 // set the current position of the song clicked
-                SongMediaPlayer.currentIndex = currentSongPosition;
+                SongMediaPlayer.currentIndex = position;
 
 
                 //navigate to MusicPlayerActivity

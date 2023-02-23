@@ -1,13 +1,8 @@
 package com.bibek.audiophile.services;
-
-import static com.bibek.audiophile.app.App.ACTION_NEXT;
-import static com.bibek.audiophile.app.App.ACTION_PLAY;
-import static com.bibek.audiophile.app.App.ACTION_PREV;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
+
 
 public class NotificationReceiver extends BroadcastReceiver {
     public static final String ACTION_NEXT = "NEXT";

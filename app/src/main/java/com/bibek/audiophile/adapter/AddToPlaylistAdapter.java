@@ -1,14 +1,13 @@
 package com.bibek.audiophile.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
+
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,15 +18,11 @@ import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.PlaylistSongCrossReference;
 import com.bibek.audiophile.model.PlaylistWithSongs;
 import com.bibek.audiophile.model.SongModel;
-import com.bibek.audiophile.ui.firstScreenActivity.FirstScreenActivity;
-import com.bibek.audiophile.ui.musicPlayerActivity.MusicPlayerActivity;
-import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
 
 public class AddToPlaylistAdapter extends RecyclerView.Adapter<AddToPlaylistAdapter.AddToPlaylistViewHolder>{
 

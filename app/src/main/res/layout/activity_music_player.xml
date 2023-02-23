@@ -94,7 +94,7 @@
             <TextView
                 android:id="@+id/tvArtistName"
                 android:layout_width="wrap_content"
-                android:layout_height="16dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:ellipsize="marquee"
                 android:text="Neffex "

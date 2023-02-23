@@ -21,7 +21,6 @@ import android.os.IBinder;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.RemoteViews;
 import android.widget.SeekBar;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.databinding.ActivityMusicPlayerBinding;
@@ -56,6 +55,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityMusicPlayerBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -186,17 +186,21 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
 
      //set the xml components with the resources from the songs list
     private void setComponentsWithSongResources() {
-        currentSong = songModelArrayList.get(SongMediaPlayer.currentIndex);
-        binding.tvMusicTitle.setText(currentSong.getTitle());
-        binding.tvMusicTitle.setSelected(true); // start marquee property
-        binding.tvArtistName.setText(currentSong.getArtist());
-        binding.tvTotalTime.setText(changeToMinutesAndSeconds(currentSong.getDuration()));
+        if(songModelArrayList != null) {
+            currentSong = songModelArrayList.get(SongMediaPlayer.currentIndex);
+            binding.tvMusicTitle.setText(currentSong.getTitle());
+            binding.tvMusicTitle.setSelected(true); // start marquee property
+            binding.tvArtistName.setText(currentSong.getArtist());
+            binding.tvTotalTime.setText(changeToMinutesAndSeconds(currentSong.getDuration()));
 
-        binding.ivPausePlay.setOnClickListener(view -> pausePlaySong());
-        binding.ivPreviousSong.setOnClickListener(view -> playPreviousSong());
-        binding.ivNextSong.setOnClickListener(view -> playNextSong());
+            binding.ivPausePlay.setOnClickListener(view -> pausePlaySong());
+            binding.ivPreviousSong.setOnClickListener(view -> playPreviousSong());
+            binding.ivNextSong.setOnClickListener(view -> playNextSong());
 
-        playMusic();
+            playMusic();
+
+        }
+
     }
 
 
@@ -315,8 +319,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
 
 
     public void showNotification(int playPauseBtn) {
-        Intent intent = new Intent(this,MusicPlayerActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent,  PendingIntent.FLAG_IMMUTABLE);
+
         Intent prevIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_PREV);
         PendingIntent prevPendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_IMMUTABLE);
 
@@ -328,24 +331,28 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
 
 
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_2)
-                .setSmallIcon(R.drawable.ic_music_icon)
-                .setContentTitle(songModelArrayList.get(SongMediaPlayer.currentIndex).getTitle())
-                .setContentText(songModelArrayList.get(SongMediaPlayer.currentIndex).getArtist())
-                .addAction(R.drawable.previous_song, "Prev", prevPendingIntent)
-                .addAction(playPauseBtn, "Play" , playPendingIntent)
-                .addAction(R.drawable.next_song , "Next", nextPendingIntent)
-                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken())
-                        .setShowActionsInCompactView(0,1,2))
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setContentIntent(contentIntent)
-                .setOnlyAlertOnce(true)
-                .build();
+        if(songModelArrayList != null) {
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_2)
+                    .setSmallIcon(R.drawable.ic_music_icon)
+                    .setContentTitle(songModelArrayList.get(SongMediaPlayer.currentIndex).getTitle())
+                    .setContentText(songModelArrayList.get(SongMediaPlayer.currentIndex).getArtist())
+                    .addAction(R.drawable.previous_song, "Prev", prevPendingIntent)
+                    .addAction(playPauseBtn, "Play" , playPendingIntent)
+                    .addAction(R.drawable.next_song , "Next", nextPendingIntent)
+                    .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken()))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setOnlyAlertOnce(true)
+                    .setOngoing(true)
+                    .build();
 
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0,notification);
+            notificationManager.notify(0,notification);
+
+        }
+
+
 
 
 

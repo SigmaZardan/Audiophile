@@ -11,7 +11,6 @@ import android.util.Log;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.adapter.FirstScreenItemAdapter;
 import com.bibek.audiophile.adapter.RecyclerViewInterface;
-import com.bibek.audiophile.ui.favoriteListActivity.FavoriteListActivity;
 import com.bibek.audiophile.model.FirstScreenItemModel;
 import com.bibek.audiophile.ui.musicListActivity.MusicListActivity;
 import com.bibek.audiophile.ui.playlistActivity.CreatePlaylistActivity;

@@ -108,11 +108,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
-                            case R.id.miRemoveFromFavoriteList:
-                                // handle the removal of the song from the favorite list
-
-                                removeSongFromFavoriteList(currentSongPosition, view);
-                                return true;
 
 
                             case R.id.miDelete: // handle the deletion of the song

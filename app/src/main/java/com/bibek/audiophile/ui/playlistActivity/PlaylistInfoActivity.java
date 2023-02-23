@@ -12,12 +12,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bibek.audiophile.R;
-import com.bibek.audiophile.adapter.FavoriteSongAdapter;
 import com.bibek.audiophile.adapter.PlaylistViewAdapter;
 import com.bibek.audiophile.app.App;
 import com.bibek.audiophile.model.PlaylistWithSongs;
 import com.bibek.audiophile.model.SongModel;
-import com.bibek.audiophile.ui.favoriteListActivity.FavoriteListActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
