@@ -45,7 +45,6 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
     @Override
     public void onBindViewHolder(@NonNull PlaylistViewAdapter.PlaylistViewHolder holder, @SuppressLint("RecyclerView") int position) {
         SongModel song = songModelArrayList.get(position);
-
         holder.tvSongTitle.setText(song.getTitle());
         holder.tvArtistName.setText(song.getArtist());
 
@@ -101,7 +100,6 @@ public class PlaylistViewAdapter extends RecyclerView.Adapter<PlaylistViewAdapte
 
         private TextView tvSongTitle;
         private TextView tvArtistName;
-        private TextView tvNoSongsInPlaylist;
 
 
         public PlaylistViewHolder(@NonNull View itemView) {

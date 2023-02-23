@@ -1,5 +1,6 @@
 package com.bibek.audiophile.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     private Context context;
     private ArrayList<SongModel> songModelArrayList;
 
-    private ArrayList<SongModel> favoriteList = new ArrayList<>();
 
 
 
@@ -50,7 +50,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SongAdapter.SongViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SongAdapter.SongViewHolder holder, @SuppressLint("RecyclerView") int position) {
         SongModel song = songModelArrayList.get(position);
         int currentSongPosition = position;
         holder.tvSongTitle.setText(song.getTitle());
@@ -63,10 +63,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
                     // create an instance or return the existing instance of SongMediaPlayer(Singleton class)
                     //
-                    SongMediaPlayer.getInstance().reset(); // reset  everything first
+                   //  SongMediaPlayer.getInstance().reset(); // reset  everything first
 
                     // set the current position of the song clicked
-                    SongMediaPlayer.currentIndex = currentSongPosition;
+                    SongMediaPlayer.currentIndex = position;
 
 
                     //navigate to MusicPlayerActivity
@@ -102,8 +102,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
               popup.show();
 
-                favoriteList = (ArrayList<SongModel>) App.db.songDao().getAllSongs();
-
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -122,28 +120,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
         });
 
     }
-
-
-
-    // handle the removal of element from the favorite list
-    private void removeSongFromFavoriteList(int position, View view) {
-
-        App.db.songDao().update( false,songModelArrayList.get(position).getSongId());
-        Snackbar.make(view, "SONG REMOVED FROM FAVORITES", Snackbar.LENGTH_LONG).show();
-
-
-    }
-
-    //method to handle th favorite list addition
-
-    private void addToFavoriteList(int position, View view) {
-
-            App.db.songDao().update( true, songModelArrayList.get(position).getSongId());
-            Snackbar.make(view, "SONG ADDED TO FAVORITES", Snackbar.LENGTH_LONG).show();
-            Log.d("DB_TEST" , "Database Size ==>" + App.db.songDao().getAllSongs().size());
-
-    }
-
 
 
     // method to handle the file deletion
