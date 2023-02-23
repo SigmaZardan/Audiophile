@@ -70,8 +70,13 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
         mediaSession = new MediaSessionCompat(this, "PlayerAudio");
 
 
-
-
+        //handle the back button pressed
+        binding.ivBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
     }
