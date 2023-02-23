@@ -1,7 +1,16 @@
 package com.bibek.audiophile.ui.musicPlayerActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.bibek.audiophile.app.App.ACTION_NEXT;
+import static com.bibek.audiophile.app.App.ACTION_PLAY;
+import static com.bibek.audiophile.app.App.ACTION_PREV;
+import static com.bibek.audiophile.app.App.CHANNEL_ID_2;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -9,13 +18,16 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.RemoteViews;
 import android.widget.SeekBar;
 import com.bibek.audiophile.R;
 import com.bibek.audiophile.databinding.ActivityMusicPlayerBinding;
 import com.bibek.audiophile.model.SongModel;
 import com.bibek.audiophile.services.MusicService;
+import com.bibek.audiophile.services.NotificationReceiver;
 import com.bibek.audiophile.singletonclass.SongMediaPlayer;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,11 +44,13 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
    private SongModel currentSong;
 
     //MediaPlayer instance
-    private MediaPlayer mediaPlayer = SongMediaPlayer.getInstance();
+    private final MediaPlayer mediaPlayer = SongMediaPlayer.getInstance();
 
     // instance of Music Service
-
     MusicService musicService;
+
+    //media session
+    MediaSessionCompat mediaSession;
 
 
     @Override
@@ -53,12 +67,21 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
 
         handleTheUIComponentsOnRealTime();
 
+        mediaSession = new MediaSessionCompat(this, "PlayerAudio");
+
+
+
+
+
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         Intent intent = new Intent(this, MusicService.class);
         bindService(intent , this, BIND_AUTO_CREATE);
-
-
-
-
     }
 
     @Override
@@ -112,9 +135,11 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
     private void handlePlayAndPauseButtonChange() {
         if(mediaPlayer.isPlaying()){
             binding.ivPausePlay.setImageResource(R.drawable.pause_song);
+
         }
         else {
             binding.ivPausePlay.setImageResource(R.drawable.play_button);
+
         }
 
     }
@@ -189,7 +214,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
     }
 
     // play the previous song
-    private void playPreviousSong() {
+    public void playPreviousSong() {
         // if the current song is the first song
         if(SongMediaPlayer.currentIndex == 0) {
             return;
@@ -202,14 +227,19 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
         //render the components
         setComponentsWithSongResources();
 
-
+        if(!mediaPlayer.isPlaying()){
+            showNotification(R.drawable.play_button);
+        }
+        else {
+            showNotification(R.drawable.pause_song);
+        }
 
 
 
     }
 
     // play the next song
-    private void playNextSong() {
+    public void playNextSong() {
         // if the current song is the last song
         if(SongMediaPlayer.currentIndex == songModelArrayList.size() - 1){
             return;
@@ -222,16 +252,28 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
         //render the components
         setComponentsWithSongResources();
 
+        if(!mediaPlayer.isPlaying()){
+            showNotification(R.drawable.play_button);
+        }
+        else {
+            showNotification(R.drawable.pause_song);
+        }
+
     }
     // pause or play the song
-    private void pausePlaySong() {
+    public void pausePlaySong() {
 
         if(mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
+            showNotification(R.drawable.play_button);
+
 
         }
         else {
             mediaPlayer.start();
+            showNotification(R.drawable.pause_song);
+
+
         }
 
 
@@ -250,6 +292,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         MusicService.MyBinder binder = (MusicService.MyBinder) iBinder;
         musicService = binder.getService();
+        musicService.setCallBack(MusicPlayerActivity.this);
         Log.e("Connected",musicService + " ");
 
 
@@ -259,5 +302,45 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
     public void onServiceDisconnected(ComponentName componentName) {
         musicService = null;
         Log.e("Disconnected" ,musicService + " ");
+    }
+
+
+    public void showNotification(int playPauseBtn) {
+        Intent intent = new Intent(this,MusicPlayerActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent,  PendingIntent.FLAG_IMMUTABLE);
+        Intent prevIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_PREV);
+        PendingIntent prevPendingIntent = PendingIntent.getBroadcast(this, 0, prevIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        Intent playIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_PLAY);
+        PendingIntent playPendingIntent = PendingIntent.getBroadcast(this, 0, playIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        Intent nextIntent = new Intent(this, NotificationReceiver.class).setAction(ACTION_NEXT);
+        PendingIntent nextPendingIntent = PendingIntent.getBroadcast(this, 0, nextIntent, PendingIntent.FLAG_IMMUTABLE);
+
+
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_2)
+                .setSmallIcon(R.drawable.ic_music_icon)
+                .setContentTitle(songModelArrayList.get(SongMediaPlayer.currentIndex).getTitle())
+                .setContentText(songModelArrayList.get(SongMediaPlayer.currentIndex).getArtist())
+                .addAction(R.drawable.previous_song, "Prev", prevPendingIntent)
+                .addAction(playPauseBtn, "Play" , playPendingIntent)
+                .addAction(R.drawable.next_song , "Next", nextPendingIntent)
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken())
+                        .setShowActionsInCompactView(0,1,2))
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentIntent(contentIntent)
+                .setOnlyAlertOnce(true)
+                .build();
+
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0,notification);
+
+
+
+
+
     }
 }

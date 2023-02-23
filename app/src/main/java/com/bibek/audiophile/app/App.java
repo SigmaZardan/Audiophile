@@ -20,9 +20,9 @@ public class App extends Application {
     // channel ids
     public static String CHANNEL_ID_1 = "CHANNEL_1";
     public static String CHANNEL_ID_2 = "CHANNEL_2";
-    public static String ACTION_NEXT = "NEXT";
-    public static String ACTION_PREV= "PREV";
-    public static String ACTION_PLAY = "PLAY";
+    public static final String ACTION_NEXT = "NEXT";
+    public static final String ACTION_PREV= "PREV";
+    public static final String ACTION_PLAY = "PLAY";
 
     @Override
     public void onCreate() {
