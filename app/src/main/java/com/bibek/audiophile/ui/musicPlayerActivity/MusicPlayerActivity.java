@@ -39,7 +39,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
 
     ActivityMusicPlayerBinding binding;
 
-    private  ArrayList<SongModel> songModelArrayList;
+    private  ArrayList<SongModel> songModelArrayList = new ArrayList<>();
 
    private SongModel currentSong;
 
@@ -87,6 +87,9 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
         super.onResume();
         Intent intent = new Intent(this, MusicService.class);
         bindService(intent , this, BIND_AUTO_CREATE);
+
+        // open the notification for every song clicked at first
+        showNotification(R.drawable.pause_song);
     }
 
     @Override
@@ -210,6 +213,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
             // handling the seekbar
             binding.sbMusicLength.setProgress(0);
             binding.sbMusicLength.setMax(mediaPlayer.getDuration());
+
 
         }catch(IOException e){
             e.printStackTrace();
