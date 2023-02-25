@@ -241,10 +241,10 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
         setComponentsWithSongResources();
 
         if(!mediaPlayer.isPlaying()){
-            showNotification(R.drawable.play_button);
+            showNotification(R.drawable.play_notification);
         }
         else {
-            showNotification(R.drawable.pause_song);
+            showNotification(R.drawable.pause_notifcation);
         }
 
 
@@ -266,10 +266,10 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
         setComponentsWithSongResources();
 
         if(!mediaPlayer.isPlaying()){
-            showNotification(R.drawable.play_button);
+            showNotification(R.drawable.play_notification);
         }
         else {
-            showNotification(R.drawable.pause_song);
+            showNotification(R.drawable.pause_notifcation);
         }
 
     }
@@ -278,13 +278,13 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
 
         if(mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
-            showNotification(R.drawable.play_button);
+            showNotification(R.drawable.play_notification);
 
 
         }
         else {
             mediaPlayer.start();
-            showNotification(R.drawable.pause_song);
+            showNotification(R.drawable.pause_notifcation);
 
 
         }
@@ -336,9 +336,9 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
                     .setSmallIcon(R.drawable.ic_music_icon)
                     .setContentTitle(songModelArrayList.get(SongMediaPlayer.currentIndex).getTitle())
                     .setContentText(songModelArrayList.get(SongMediaPlayer.currentIndex).getArtist())
-                    .addAction(R.drawable.previous_song, "Prev", prevPendingIntent)
+                    .addAction(R.drawable.prev_notification, "Prev", prevPendingIntent)
                     .addAction(playPauseBtn, "Play" , playPendingIntent)
-                    .addAction(R.drawable.next_song , "Next", nextPendingIntent)
+                    .addAction(R.drawable.next_notification , "Next", nextPendingIntent)
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken()))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setOnlyAlertOnce(true)
