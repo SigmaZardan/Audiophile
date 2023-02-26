@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/miAddToPlaylist"
+       android:title="Add To Playlist"
+        android:icon="@drawable/add_icon"
+        />
+    <item
+        android:id="@+id/miRemoveFromPlaylist"
+        android:title="Remove From Playlist"
+        android:icon="@drawable/close_icon"
+        />
+
+
+</menu>
