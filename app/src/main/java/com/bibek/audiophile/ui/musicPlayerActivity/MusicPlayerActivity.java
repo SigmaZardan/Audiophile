@@ -339,7 +339,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements ServiceCon
                     .addAction(R.drawable.prev_notification, "Prev", prevPendingIntent)
                     .addAction(playPauseBtn, "Play" , playPendingIntent)
                     .addAction(R.drawable.next_notification , "Next", nextPendingIntent)
-                    .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken()))
+                    .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken()).setShowActionsInCompactView(0,1,2))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setOnlyAlertOnce(true)
                     .setOngoing(true)
