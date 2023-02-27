@@ -58,13 +58,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.favoriteListActivity.FavoriteListActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ui.firstScreenActivity.FirstScreenActivity"
             android:exported="true">
 
